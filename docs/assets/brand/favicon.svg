@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="94" height="84" viewBox="0 0 94 84" role="img" aria-labelledby="title desc">
+<title id="title">EvoGen symbol / micro / primary</title><desc id="desc">Vector artwork. Wordmarks are outlined. No embedded raster images or font dependency.</desc><g transform="translate(2 2)"><path id="frame" fill="#192B3B" d="M28 0H82L62 20H33C25 20 21 24 21 30H53L33 50H21C21 56 25 60 33 60H82L62 80H28C10.5 80 0 67.5 0 51V29C0 12.5 10.5 0 28 0Z"/><path id="selected-module" fill="#286EF0" d="M67 30H90L70 50H47Z"/></g></svg>

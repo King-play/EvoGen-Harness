@@ -1,0 +1,36 @@
+Benchmark,Method,Overall score,Metric,Report table
+GenEval2,FLUX.1-dev,0.2115,Overall Soft-TIFA GM,1
+GenEval2,Janus-Pro,0.1878,Overall Soft-TIFA GM,1
+GenEval2,Flow-GRPO,0.2198,Overall Soft-TIFA GM,1
+GenEval2,Qwen-Image,0.3483,Overall Soft-TIFA GM,1
+GenEval2,Z-Image,0.3034,Overall Soft-TIFA GM,1
+GenEval2,Nano Banana,0.4456,Overall Soft-TIFA GM,1
+GenEval2,NeuroPrompts,0.1976,Overall Soft-TIFA GM,1
+GenEval2,Promptist,0.2056,Overall Soft-TIFA GM,1
+GenEval2,BeautifulPrompt,0.1134,Overall Soft-TIFA GM,1
+GenEval2,VisualPrompter,0.2552,Overall Soft-TIFA GM,1
+GenEval2,Idea2Img,0.0586,Overall Soft-TIFA GM,1
+GenEval2,GenArtist,0.0556,Overall Soft-TIFA GM,1
+GenEval2,ChatGen,0.0388,Overall Soft-TIFA GM,1
+GenEval2,OctoT2I,0.2895,Overall Soft-TIFA GM,1
+GenEval2,EvoGen-Harness,0.7089,Overall Soft-TIFA GM,1
+T2I-CompBench++,FLUX.1-dev,0.4811,Average compositional score,2
+T2I-CompBench++,Janus-Pro,0.3526,Average compositional score,2
+T2I-CompBench++,Flow-GRPO,0.5669,Average compositional score,2
+T2I-CompBench++,Qwen-Image,0.5727,Average compositional score,2
+T2I-CompBench++,Z-Image,0.5537,Average compositional score,2
+T2I-CompBench++,Nano Banana,0.6087,Average compositional score,2
+T2I-CompBench++,NeuroPrompts,0.4220,Average compositional score,2
+T2I-CompBench++,Promptist,0.4407,Average compositional score,2
+T2I-CompBench++,BeautifulPrompt,0.3664,Average compositional score,2
+T2I-CompBench++,VisualPrompter,0.4969,Average compositional score,2
+T2I-CompBench++,Idea2Img,0.3444,Average compositional score,2
+T2I-CompBench++,GenArtist,0.4478,Average compositional score,2
+T2I-CompBench++,ChatGen,0.2825,Average compositional score,2
+T2I-CompBench++,OctoT2I,0.5646,Average compositional score,2
+T2I-CompBench++,EvoGen-Harness,0.6807,Average compositional score,2
+WISE,Qwen-Image,0.5100,Overall WiScore,3
+WISE,Nano Banana,0.6028,Overall WiScore,3
+WISE,VisualPrompter,0.4708,Overall WiScore,3
+WISE,OctoT2I,0.4557,Overall WiScore,3
+WISE,EvoGen-Harness,0.6780,Overall WiScore,3

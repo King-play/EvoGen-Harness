@@ -1,0 +1,181 @@
+{
+  "provenance": "Supplied EvoGen-Harness technical report, Tables 1–3. Results are author-reported, not independently reproduced.",
+  "benchmarks": [
+    {
+      "id": "geneval",
+      "name": "GenEval2",
+      "metric": "Overall Soft-TIFA GM",
+      "value": "0.7089",
+      "delta": "+0.2633",
+      "table": 1,
+      "page": 6,
+      "description": "Fine-grained instruction following across objects, attributes, counting, position, and verbs. Overall scores use prompt-level Soft-TIFA GM.",
+      "rows": [
+        [
+          "FLUX.1-dev",
+          0.2115
+        ],
+        [
+          "Janus-Pro",
+          0.1878
+        ],
+        [
+          "Flow-GRPO",
+          0.2198
+        ],
+        [
+          "Qwen-Image",
+          0.3483
+        ],
+        [
+          "Z-Image",
+          0.3034
+        ],
+        [
+          "Nano Banana",
+          0.4456
+        ],
+        [
+          "NeuroPrompts",
+          0.1976
+        ],
+        [
+          "Promptist",
+          0.2056
+        ],
+        [
+          "BeautifulPrompt",
+          0.1134
+        ],
+        [
+          "VisualPrompter",
+          0.2552
+        ],
+        [
+          "Idea2Img",
+          0.0586
+        ],
+        [
+          "GenArtist",
+          0.0556
+        ],
+        [
+          "ChatGen",
+          0.0388
+        ],
+        [
+          "OctoT2I",
+          0.2895
+        ],
+        [
+          "EvoGen-Harness",
+          0.7089
+        ]
+      ]
+    },
+    {
+      "id": "compbench",
+      "name": "T2I-CompBench++",
+      "metric": "Average compositional score",
+      "value": "0.6807",
+      "delta": "+0.0720",
+      "table": 2,
+      "page": 7,
+      "description": "Compositional generation across eight dimensions, including attribute binding, spatial relations, numeracy, and complex composition.",
+      "rows": [
+        [
+          "FLUX.1-dev",
+          0.4811
+        ],
+        [
+          "Janus-Pro",
+          0.3526
+        ],
+        [
+          "Flow-GRPO",
+          0.5669
+        ],
+        [
+          "Qwen-Image",
+          0.5727
+        ],
+        [
+          "Z-Image",
+          0.5537
+        ],
+        [
+          "Nano Banana",
+          0.6087
+        ],
+        [
+          "NeuroPrompts",
+          0.422
+        ],
+        [
+          "Promptist",
+          0.4407
+        ],
+        [
+          "BeautifulPrompt",
+          0.3664
+        ],
+        [
+          "VisualPrompter",
+          0.4969
+        ],
+        [
+          "Idea2Img",
+          0.3444
+        ],
+        [
+          "GenArtist",
+          0.4478
+        ],
+        [
+          "ChatGen",
+          0.2825
+        ],
+        [
+          "OctoT2I",
+          0.5646
+        ],
+        [
+          "EvoGen-Harness",
+          0.6807
+        ]
+      ]
+    },
+    {
+      "id": "wise",
+      "name": "WISE",
+      "metric": "Overall WiScore",
+      "value": "0.6780",
+      "delta": "+0.0752",
+      "table": 3,
+      "page": 7,
+      "description": "World-knowledge consistency across culture, time, space, biology, physics, and chemistry, measured using WiScore.",
+      "rows": [
+        [
+          "Qwen-Image",
+          0.51
+        ],
+        [
+          "Nano Banana",
+          0.6028
+        ],
+        [
+          "VisualPrompter",
+          0.4708
+        ],
+        [
+          "OctoT2I",
+          0.4557
+        ],
+        [
+          "EvoGen-Harness",
+          0.678
+        ]
+      ]
+    }
+  ]
+}
