@@ -89,13 +89,12 @@ Run commands from the repository root. **Python 3.11** is the reference version 
 ```bash
 git clone https://github.com/King-play/EvoGen-Harness.git
 cd EvoGen-Harness
-python3.11 -m venv .venv
-source .venv/bin/activate
-python -m pip install --upgrade pip
-python -m pip install -e ".[dev]"
+conda create -n genharness python=3.11 -y
+conda activate genharness
+pip install --upgrade pip
+pip install -r requirements.txt
 ```
 
-On Windows, activate with `.venv\Scripts\Activate.ps1`. The editable install enables both `python -m gen_harness.cli` and `evogen-harness`. It does **not** install model weights or the CUDA inference stack.
 
 ### 2. Check the code and the supplied data—no GPU or API key
 
