@@ -1,0 +1,64 @@
+{
+  "schema": "gen_harness.paper_artifacts.v1",
+  "paper_run_id": "replace-with-run-id",
+  "status": "template_not_a_result",
+  "llm": {
+    "model_family": "gpt-4.1",
+    "model_snapshot": "gpt-4.1-2025-04-14"
+  },
+  "generator": {
+    "model_family": "FLUX.1-dev",
+    "backend_config": "configs/backends/flux1_dev_diffusers.json",
+    "frozen": true
+  },
+  "internal_verifier": {
+    "inspection_config_geneval2_wise": "configs/inspection/composite_owlv2_nvila_strong.json",
+    "inspection_config_t2icompbenchpp": "configs/inspection/composite_owlv2_nvila_t2icompbenchpp.json",
+    "official_evaluator_used_during_generation": false
+  },
+  "evolution_data": {
+    "source": "PartiPrompts P2",
+    "target": "data/evolution/partiprompts_p2_target500.jsonl",
+    "heldout": "data/evolution/partiprompts_p2_heldout100.jsonl",
+    "preservation": "data/evolution/partiprompts_p2_preservation100.jsonl",
+    "target_count": 500,
+    "heldout_count": 100,
+    "preservation_count": 100,
+    "manifest": "data/evolution/partiprompts_p2_manifest.json",
+    "filter_scope": "Refer to the actual source manifest; normalized exact matching against its listed benchmark files."
+  },
+  "harness": {
+    "initial_harness": "examples/visual_harness",
+    "final_frozen_harness": "artifacts/final_harness",
+    "final_harness_frozen_before_benchmark_eval": true
+  },
+  "trace_protocol": {
+    "frontier_size": 3,
+    "stochastic_conditions_k": 4,
+    "candidate_budget_per_responsibility": 3,
+    "max_depth": 3
+  },
+  "results": {
+    "geneval2": {
+      "generations_jsonl": "artifacts/results/geneval2/gen_harness_generations.jsonl",
+      "official_export": "artifacts/results/geneval2/image_map.json",
+      "official_scores": "artifacts/results/geneval2/official_scores.json"
+    },
+    "t2icompbenchpp": {
+      "generations_jsonl": "artifacts/results/t2icompbenchpp/gen_harness_generations.jsonl",
+      "official_export_dir": "artifacts/results/t2icompbenchpp/eval_manifests",
+      "official_scores": "artifacts/results/t2icompbenchpp/official_scores.json"
+    },
+    "wise": {
+      "generations_jsonl": "artifacts/results/wise/gen_harness_generations.jsonl",
+      "official_export": "artifacts/results/wise/official_input.jsonl",
+      "official_scores": "artifacts/results/wise/official_scores.json"
+    }
+  },
+  "audit": {
+    "official_labels_used_for_generation_or_selection": false,
+    "official_evaluator_used_for_generation_or_selection": false,
+    "fallback_image_substitution_used": false,
+    "dataset_specific_patch_rules_used": false
+  }
+}

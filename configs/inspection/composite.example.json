@@ -1,0 +1,21 @@
+{
+  "type": "composite",
+  "inspectors": [
+    {
+      "type": "object_requirements",
+      "name": "internal_object_requirement_inspector",
+      "description": "Diagnostic-only metadata inspector; remove this from formal configs or replace it with detector_object_requirements plus a real command.",
+      "allow_diagnostic_inspection_metadata": true
+    },
+    {
+      "type": "external_command",
+      "name": "custom_vlm_judge",
+      "command": [
+        "{python}",
+        "path/to/judge.py",
+        "{input_json}",
+        "{output_json}"
+      ]
+    }
+  ]
+}

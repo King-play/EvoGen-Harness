@@ -1,0 +1,17 @@
+{
+  "type": "flow_grpo",
+  "name": "flow_grpo_lowmem",
+  "model_family": "SD3.5 + Flow-GRPO",
+  "frozen": true,
+  "model_root": "${GENHARNESS_FLOW_GRPO_MODEL_ROOT}",
+  "image_cache_dir": "runs/flow_grpo_backend_cache",
+  "torch_dtype": "bfloat16",
+  "split_prompt_channels": true,
+  "min_free_cuda_memory_gb": 12,
+  "local_files_only": true,
+  "fast_import_package_distributions": true,
+  "enable_model_cpu_offload": true,
+  "enable_attention_slicing": true,
+  "enable_vae_slicing": true,
+  "enable_vae_tiling": true
+}

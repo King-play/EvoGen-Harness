@@ -1,0 +1,27 @@
+{
+  "suite": "synthetic_compositional_contracts",
+  "purpose": "hard spatial non-GenEval self-evolve gate built from prior internal failure task ids",
+  "source": "data/synthetic_compositional/compositional_suite_v2_action_self_evolve_2026_09_05.jsonl",
+  "output": "data/synthetic_compositional/compositional_suite_v2_spatial_hard_self_evolve_2026_09_06.jsonl",
+  "num_tasks": 5,
+  "splits": {
+    "target": 2,
+    "heldout": 2,
+    "preservation": 1
+  },
+  "families": {
+    "spatial": 5
+  },
+  "prior_internal_failure_task_ids": [
+    "synthetic_heldout_spatial_001",
+    "synthetic_heldout_spatial_002",
+    "synthetic_target_spatial_000",
+    "synthetic_target_spatial_004"
+  ],
+  "leakage_controls": [
+    "No GenEval prompt metadata is read.",
+    "No official evaluator outputs are read.",
+    "Rows do not contain GenEval ids, tags, or benchmark metadata.",
+    "Task ids came from synthetic internal failure traces, not benchmark reference trajectories."
+  ]
+}

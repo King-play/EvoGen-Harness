@@ -1,0 +1,35 @@
+{
+  "component_name": "reference_binder",
+  "component_type": "middleware",
+  "version": "0.1.0",
+  "boundary_contract": {
+    "owns": [
+      "reference-role binding",
+      "missing-reference enforcement"
+    ],
+    "reads": [
+      "policy reference requirements",
+      "task reference metadata",
+      "external evidence references"
+    ],
+    "writes": [
+      "role-to-reference bindings",
+      "binding diagnostics"
+    ],
+    "must_not_own": [
+      "allowed reference role policy",
+      "workflow recipe text",
+      "tool capability metadata",
+      "experience storage"
+    ]
+  },
+  "mode": "role_aware",
+  "roles": [
+    "identity",
+    "style",
+    "layout",
+    "material"
+  ],
+  "role_overrides": {},
+  "strict_required_references": true
+}

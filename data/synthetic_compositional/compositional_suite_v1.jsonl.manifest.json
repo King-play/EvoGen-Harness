@@ -1,0 +1,23 @@
+{
+  "suite": "synthetic_compositional_contracts",
+  "purpose": "pre-registered non-GenEval development/heldout/preservation gate",
+  "seed": 0,
+  "output": "data/synthetic_compositional/compositional_suite_v1.jsonl",
+  "num_tasks": 60,
+  "splits": {
+    "target": 24,
+    "heldout": 24,
+    "preservation": 12
+  },
+  "families": {
+    "count": 20,
+    "spatial": 20,
+    "attribute": 20
+  },
+  "leakage_controls": [
+    "No GenEval prompt metadata is read.",
+    "No official evaluator outputs are read.",
+    "Rows do not contain GenEval ids, tags, or benchmark metadata.",
+    "Tasks are generated from generic object, color, count, and spatial templates."
+  ]
+}

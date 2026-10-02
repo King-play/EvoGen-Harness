@@ -1,0 +1,13 @@
+{
+  "type": "http",
+  "name": "hosted_visual_inspection_api",
+  "endpoint": "https://your-api.example.com/inspect",
+  "headers": {
+    "Authorization": "Bearer ${GEN_HARNESS_API_KEY}"
+  },
+  "timeout": 300,
+  "input_contract": {
+    "schema": "gen_harness.public_inspection_input.v1",
+    "description": "POST body is {input, seed}. input contains public generation prompt, image URI/path, references, and constraints with public IDs such as constraint_0. Return constraint_results keyed by public IDs. The adapter remaps results internally."
+  }
+}

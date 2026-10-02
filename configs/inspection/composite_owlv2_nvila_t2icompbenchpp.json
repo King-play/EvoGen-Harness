@@ -1,0 +1,68 @@
+{
+  "type": "composite",
+  "description": "T2ICompBench++ internal verifier. OWLv2 owns open-vocabulary presence, exact count, 2D geometry, and detector-box color evidence; NVILA-Lite-2B owns actions, depth, and semantic alignment. Official benchmark labels and scores are never available to either verifier.",
+  "merge_strategy": "capability_partitioned",
+  "inspectors": [
+    {
+      "type": "detector_object_requirements",
+      "name": "owlv2_base_open_vocab_geometry_color",
+      "description": "OWLv2-base open-vocabulary detector with class-wise NMS, explicit uncertainty band, and internal color evidence for attribute-bound objects.",
+      "hard_evidence_required": true,
+      "skip_unsupported_classes": true,
+      "attribute_color_verification": true,
+      "attribute_match_mode": "top_confidence",
+      "attribute_color_threshold": 0.045,
+      "attribute_color_margin": 0.01,
+      "attribute_color_compare_all_colors": true,
+      "attribute_ignore_achromatic_competitors_for_chromatic": true,
+      "spatial_match_mode": "top_confidence",
+      "spatial_geometry_mode": "geneval_size_aware_v1",
+      "spatial_size_threshold": 0.1,
+      "persistent_command": [
+        "{python}",
+        "scripts/owlv2_open_vocab_detector.py",
+        "--serve",
+        "--model",
+        "${GENHARNESS_OWLV2_MODEL}",
+        "--device",
+        "cuda",
+        "--threshold",
+        "0.20",
+        "--uncertainty-threshold",
+        "0.08",
+        "--nms-threshold",
+        "0.55",
+        "--local-files-only"
+      ]
+    },
+    {
+      "type": "external_command",
+      "name": "nvila_lite_2b_probability_verifier",
+      "description": "NVILA-Lite-2B atomic yes/no probability verifier for action, depth, and overall semantic consistency.",
+      "persistent_command": [
+        "{python}",
+        "scripts/nvila_semantic_verifier.py",
+        "--serve",
+        "--model",
+        "${GENHARNESS_NVILA_MODEL}",
+        "--device",
+        "auto",
+        "--pass-threshold",
+        "0.90",
+        "--reject-threshold",
+        "0.65"
+      ]
+    }
+  ],
+  "capability_owners": {
+    "count": "owlv2_base_open_vocab_geometry_color",
+    "count_detector": "owlv2_base_open_vocab_geometry_color",
+    "attribute": "owlv2_base_open_vocab_geometry_color",
+    "attribute_detector": "owlv2_base_open_vocab_geometry_color",
+    "action": "nvila_lite_2b_probability_verifier",
+    "spatial_2d_detector": "owlv2_base_open_vocab_geometry_color",
+    "spatial_2d_open_vocab": "owlv2_base_open_vocab_geometry_color",
+    "spatial_depth": "nvila_lite_2b_probability_verifier",
+    "prompt_alignment": "nvila_lite_2b_probability_verifier"
+  }
+}

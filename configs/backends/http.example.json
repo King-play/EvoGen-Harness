@@ -1,0 +1,16 @@
+{
+  "type": "http",
+  "name": "hosted_image_generation_api",
+  "endpoint": "https://your-api.example.com/generate",
+  "headers": {
+    "Authorization": "Bearer ${GEN_HARNESS_API_KEY}"
+  },
+  "timeout": 300,
+  "request_metadata": {
+    "model": "your-model-name"
+  },
+  "input_contract": {
+    "schema": "gen_harness.public_generation_input.v1",
+    "description": "POST body is {input, seed, request_metadata}. input contains public prompt semantics only, not the full task or full program."
+  }
+}

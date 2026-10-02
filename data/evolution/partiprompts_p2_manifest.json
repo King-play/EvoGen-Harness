@@ -1,0 +1,22 @@
+{
+  "schema": "gen_harness.partiprompts_p2_evolution_split.v1",
+  "source": "https://raw.githubusercontent.com/google-research/parti/main/PartiPrompts.tsv",
+  "source_sha256": "fab29e41bb512a169b56acab4cf2a41dcb675e285df2efcde6640c7dd3c440eb",
+  "seed": 2027,
+  "target_count": 500,
+  "heldout_count": 100,
+  "preservation_count": 100,
+  "source_prompt_count": 1632,
+  "deduped_prompt_count": 1631,
+  "filtered_prompt_count": 1631,
+  "benchmark_overlap_removed": 0,
+  "benchmark_task_files": [
+    "data/geneval2/geneval2_tasks_prompt_only_2026_09_04.jsonl"
+  ],
+  "filter_rule": "normalized prompt exact match against provided benchmark task prompts",
+  "outputs": {
+    "target": "data/evolution/partiprompts_p2_target500.jsonl",
+    "heldout": "data/evolution/partiprompts_p2_heldout100.jsonl",
+    "preservation": "data/evolution/partiprompts_p2_preservation100.jsonl"
+  }
+}

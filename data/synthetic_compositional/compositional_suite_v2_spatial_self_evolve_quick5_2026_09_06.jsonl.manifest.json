@@ -1,0 +1,21 @@
+{
+  "suite": "synthetic_compositional_contracts",
+  "purpose": "quick spatial-only non-GenEval self-evolve gate",
+  "source": "data/synthetic_compositional/compositional_suite_v2_action_self_evolve_quick20_2026_09_06.jsonl",
+  "output": "data/synthetic_compositional/compositional_suite_v2_spatial_self_evolve_quick5_2026_09_06.jsonl",
+  "num_tasks": 5,
+  "splits": {
+    "target": 2,
+    "heldout": 2,
+    "preservation": 1
+  },
+  "families": {
+    "spatial": 5
+  },
+  "leakage_controls": [
+    "No GenEval prompt metadata is read.",
+    "No official evaluator outputs are read.",
+    "Rows do not contain GenEval ids, tags, or benchmark metadata.",
+    "Filtered from pre-registered synthetic non-benchmark compositional suite."
+  ]
+}

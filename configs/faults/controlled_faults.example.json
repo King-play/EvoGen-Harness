@@ -1,0 +1,3 @@
+{
+  "description": "Use `python -m gen_harness.cli inject-faults --include-compound` to create single-responsibility, NO-PATCH stochastic-control, and all ten paired-responsibility fault cases with gold labels."
+}

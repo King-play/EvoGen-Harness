@@ -1,0 +1,15 @@
+{
+  "type": "lightweight_alignment",
+  "name": "clip_siglip_or_ocr_alignment",
+  "description": "Diagnostic-only metadata scorer unless command or persistent_command is configured. Formal runs must call a real CLIP/SigLIP/OCR scorer instead of consuming backend-provided scores.",
+  "allow_diagnostic_inspection_metadata": true,
+  "threshold": 0.25,
+  "constraint_types": [
+    "prompt_alignment",
+    "attribute",
+    "spatial",
+    "text",
+    "quality",
+    "aesthetic"
+  ]
+}

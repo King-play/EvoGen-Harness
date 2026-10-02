@@ -1,0 +1,45 @@
+{
+  "component_name": "inspection_tools",
+  "component_type": "tools",
+  "version": "0.1.0",
+  "boundary_contract": {
+    "owns": [
+      "inspection tool declarations",
+      "internal verifier capability metadata",
+      "verifier execution surface"
+    ],
+    "reads": [
+      "generated image",
+      "visual program",
+      "typed visual constraints"
+    ],
+    "writes": [
+      "constraint-indexed inspection results",
+      "verifier evidence summaries"
+    ],
+    "must_not_own": [
+      "benchmark scoring",
+      "workflow recipe text",
+      "tool routing",
+      "memory persistence"
+    ]
+  },
+  "tools": {
+    "constraint_inspector": {
+      "name": "constraint_inspector",
+      "capabilities": [
+        "identity",
+        "style",
+        "negative",
+        "count",
+        "spatial",
+        "action",
+        "attribute",
+        "text",
+        "quality",
+        "aesthetic",
+        "prompt_alignment"
+      ]
+    }
+  }
+}

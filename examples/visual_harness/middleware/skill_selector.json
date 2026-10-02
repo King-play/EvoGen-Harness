@@ -1,0 +1,31 @@
+{
+  "component_name": "skill_selector",
+  "component_type": "middleware",
+  "version": "0.1.0",
+  "boundary_contract": {
+    "owns": [
+      "task-family to workflow mapping",
+      "default workflow selection"
+    ],
+    "reads": [
+      "task family",
+      "policy contract metadata"
+    ],
+    "writes": [
+      "selected workflow name",
+      "selection diagnostics"
+    ],
+    "must_not_own": [
+      "workflow recipe implementation",
+      "constraint ontology",
+      "tool capability metadata",
+      "experience storage"
+    ]
+  },
+  "default_skill": "default",
+  "task_family_to_skill": {
+    "multi_reference": "multi_reference_generation",
+    "compositional": "compositional_generation",
+    "vague_prompt": "prompt_enhancement"
+  }
+}

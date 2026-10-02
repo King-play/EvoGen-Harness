@@ -1,0 +1,15 @@
+{
+  "type": "flow_grpo",
+  "name": "t2icompbenchpp_flow_grpo",
+  "model_family": "SD3.5 + Flow-GRPO",
+  "frozen": true,
+  "model_root": "${GENHARNESS_FLOW_GRPO_MODEL_ROOT}",
+  "image_cache_dir": "${GENHARNESS_T2ICOMPBENCHPP_RUN_ROOT}/flow_grpo_image_cache",
+  "trace_cache_dir": "${GENHARNESS_T2ICOMPBENCHPP_RUN_ROOT}/flow_grpo_trace_cache",
+  "torch_dtype": "bfloat16",
+  "split_prompt_channels": true,
+  "min_free_cuda_memory_gb": 24,
+  "local_files_only": true,
+  "num_inference_steps": 40,
+  "guidance_scale": 5.0
+}

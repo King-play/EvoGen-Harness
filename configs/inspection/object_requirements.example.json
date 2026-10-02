@@ -1,0 +1,6 @@
+{
+  "type": "object_requirements",
+  "name": "internal_object_requirement_inspector",
+  "description": "Diagnostic-only metadata inspector. It checks object_requirements.v1 constraints against object_counts or detected_objects already attached to the generation result; formal runs must use a real detector/VLM inspector.",
+  "allow_diagnostic_inspection_metadata": true
+}

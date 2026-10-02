@@ -1,0 +1,13 @@
+{
+  "type": "detector_object_requirements",
+  "name": "generic_detector_object_requirement_inspector",
+  "description": "Runs a detector/VLM command that returns object_counts or detected_objects, then checks object_requirements.v1 constraints.",
+  "command": [
+    "{python}",
+    "path/to/detector_adapter.py",
+    "--input",
+    "{input_json}",
+    "--output",
+    "{output_json}"
+  ]
+}

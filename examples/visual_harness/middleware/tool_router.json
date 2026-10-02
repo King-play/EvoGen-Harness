@@ -1,0 +1,31 @@
+{
+  "component_name": "tool_router",
+  "component_type": "middleware",
+  "version": "0.1.0",
+  "boundary_contract": {
+    "owns": [
+      "tool routing policy",
+      "required-runtime route matching",
+      "routing diagnostics"
+    ],
+    "reads": [
+      "policy contract requirements",
+      "declared tool metadata",
+      "task reference needs"
+    ],
+    "writes": [
+      "selected tool name",
+      "route diagnostics",
+      "route warning when no exact match exists"
+    ],
+    "must_not_own": [
+      "tool capability declarations",
+      "workflow recipe text",
+      "constraint ontology",
+      "experience storage"
+    ]
+  },
+  "default_tool": "base_generator",
+  "identity_tool": "identity_generator",
+  "strict_preferred_route": false
+}

@@ -1,0 +1,44 @@
+{
+  "component_name": "visual_memory",
+  "component_type": "memory",
+  "version": "0.1.0",
+  "boundary_contract": {
+    "owns": [
+      "visual experience records",
+      "weakness records",
+      "validated patch records",
+      "regression case records",
+      "prompt guideline retrieval"
+    ],
+    "reads": [
+      "completed internal run traces",
+      "patch validation reports",
+      "task family and prompt family metadata"
+    ],
+    "writes": [
+      "visual_experiences.jsonl",
+      "failure_clusters.jsonl",
+      "weaknesses.jsonl",
+      "validated_patches.jsonl",
+      "regression_cases.jsonl",
+      "prompt_guidelines.jsonl"
+    ],
+    "llm_editable": [
+      "prompt_guidelines.jsonl"
+    ],
+    "controller_owned": [
+      "visual_experiences.jsonl",
+      "failure_clusters.jsonl",
+      "weaknesses.jsonl",
+      "validated_patches.jsonl",
+      "regression_cases.jsonl"
+    ],
+    "must_not_own": [
+      "constraint ontology",
+      "workflow recipe implementation",
+      "tool routing",
+      "tool execution",
+      "benchmark scoring"
+    ]
+  }
+}

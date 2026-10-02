@@ -1,0 +1,72 @@
+{
+  "type": "composite",
+  "description": "Strong evidence variant. OWLv2 owns open-vocabulary presence, exact count, and 2D bbox geometry; NVILA-Lite-2B owns attributes, materials, actions, depth, and semantic alignment. Official benchmark labels are never available to either verifier.",
+  "merge_strategy": "capability_partitioned",
+  "inspectors": [
+    {
+      "type": "detector_object_requirements",
+      "name": "owlv2_base_open_vocab_geometry",
+      "description": "OWLv2-base open-vocabulary detector with class-wise NMS and an explicit uncertainty band.",
+      "hard_evidence_required": true,
+      "skip_unsupported_classes": true,
+      "attribute_color_verification": false,
+      "spatial_match_mode": "top_confidence",
+      "spatial_geometry_mode": "geneval_size_aware_v1",
+      "spatial_size_threshold": 0.1,
+      "persistent_command": [
+        "{python}",
+        "scripts/owlv2_open_vocab_detector.py",
+        "--serve",
+        "--model",
+        "${GENHARNESS_OWLV2_MODEL}",
+        "--device",
+        "cuda",
+        "--threshold",
+        "0.20",
+        "--uncertainty-threshold",
+        "0.08",
+        "--nms-threshold",
+        "0.55",
+        "--local-files-only"
+      ]
+    },
+    {
+      "type": "external_command",
+      "name": "nvila_lite_2b_probability_verifier",
+      "description": "NVILA-Lite-2B atomic yes/no probability verifier for attribute, material, action, depth, and overall semantic consistency.",
+      "persistent_command": [
+        "{python}",
+        "scripts/nvila_semantic_verifier.py",
+        "--serve",
+        "--model",
+        "${GENHARNESS_NVILA_MODEL}",
+        "--device",
+        "auto",
+        "--pass-threshold",
+        "0.90",
+        "--reject-threshold",
+        "0.65"
+      ]
+    }
+  ],
+  "capability_owners": {
+    "count": "owlv2_base_open_vocab_geometry",
+    "count_detector": "owlv2_base_open_vocab_geometry",
+    "attribute": "nvila_lite_2b_probability_verifier",
+    "attribute_detector": "owlv2_base_open_vocab_geometry",
+    "material": "nvila_lite_2b_probability_verifier",
+    "material_detector": "owlv2_base_open_vocab_geometry",
+    "action": "nvila_lite_2b_probability_verifier",
+    "identity": "nvila_lite_2b_probability_verifier",
+    "style": "nvila_lite_2b_probability_verifier",
+    "layout": "nvila_lite_2b_probability_verifier",
+    "negative": "nvila_lite_2b_probability_verifier",
+    "text": "nvila_lite_2b_probability_verifier",
+    "quality": "nvila_lite_2b_probability_verifier",
+    "aesthetic": "nvila_lite_2b_probability_verifier",
+    "spatial_2d_detector": "owlv2_base_open_vocab_geometry",
+    "spatial_2d_open_vocab": "owlv2_base_open_vocab_geometry",
+    "spatial_depth": "nvila_lite_2b_probability_verifier",
+    "prompt_alignment": "nvila_lite_2b_probability_verifier"
+  }
+}

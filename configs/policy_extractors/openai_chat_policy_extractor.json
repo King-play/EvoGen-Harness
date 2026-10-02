@@ -1,0 +1,13 @@
+{
+  "type": "openai_chat_policy_extractor",
+  "name": "default_llm_policy_extractor",
+  "base_url": "${GENHARNESS_LLM_BASE_URL}",
+  "model": "${GENHARNESS_LLM_MODEL}",
+  "headers": {
+    "Authorization": "Bearer ${GENHARNESS_LLM_API_KEY}"
+  },
+  "temperature": 0.0,
+  "max_schema_retries": 2,
+  "max_request_retries": 2,
+  "timeout": 120
+}

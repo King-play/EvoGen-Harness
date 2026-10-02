@@ -1,0 +1,148 @@
+{
+  "schema": "evogen.release_validation.v1",
+  "status": "passed_with_explicit_untested_integrations",
+  "date": "2026-10-02",
+  "input_archive_sha256": "bc9be5a5a1bcb4fa5bce7b17a14575d18b57a596728ec121c08deea81e90c20a",
+  "environment": {
+    "python": "3.13.5",
+    "platform": "Linux CPU",
+    "packages": {
+      "pytest": "9.0.2",
+      "numpy": "2.3.5",
+      "Pillow": "12.3.0",
+      "PyYAML": "6.0.3",
+      "setuptools": "82.0.1"
+    },
+    "torch": "2.10.0+cpu"
+  },
+  "unit_tests": {
+    "command": "python -m pytest -q -rs",
+    "total": 295,
+    "passed": 293,
+    "skipped": 2,
+    "failed": 0,
+    "skips": [
+      "Optional Flow-GRPO distribution-map integration requires Transformers, which was not installed.",
+      "Real SD3.5 tokenizer coverage requires GENHARNESS_FLOW_GRPO_MODEL_ROOT, which was not supplied."
+    ],
+    "new_regression_tests": 16
+  },
+  "editable_install": {
+    "passed": true,
+    "command": "python -m pip install --no-deps --no-build-isolation -e .",
+    "source_version": "0.2.0",
+    "scope": "Built and installed using existing environment dependencies; not a fresh full dependency resolution."
+  },
+  "source_checks": {
+    "schema": "evogen.release_check.v1",
+    "passed": true,
+    "python_files_parsed": 78,
+    "local_doc_links_checked": 103,
+    "documented_cli_commands_checked": 24,
+    "component_audit_passed": true,
+    "p2_data": {
+      "schema": "evogen.release_split_check.v1",
+      "passed": true,
+      "counts": {
+        "target": 500,
+        "heldout": 100,
+        "preservation": 100
+      },
+      "total": 700,
+      "unique_task_ids": 700,
+      "pairwise_disjoint_normalized_prompts": true,
+      "unique_source_indices": 700,
+      "files": {
+        "data/evolution/partiprompts_p2_target500.jsonl": "9c374337055f22fc7131d69a78a36fb8a238079c6d14d07c9438955dff767712",
+        "data/evolution/partiprompts_p2_heldout100.jsonl": "2b1a7050bc53df7faec1904fd734ffe517fd6f23f7423e40a47a510fefcd2c10",
+        "data/evolution/partiprompts_p2_preservation100.jsonl": "bbdfd533e69eb5dd13207bf5db65c30a441daf3937bd14f591869deb77f4093f"
+      },
+      "source_manifest": "data/evolution/partiprompts_p2_manifest.json",
+      "manifest_filter_rule": "normalized prompt exact match against provided benchmark task prompts",
+      "benchmark_checks": [
+        {
+          "path": "data/geneval2/geneval2_tasks_prompt_only_2026_09_04.jsonl",
+          "num_prompts": 800,
+          "normalized_exact_overlaps": 0
+        }
+      ],
+      "scope": "Supplied bytes and recorded normalized exact-match coverage; not a claim of historical-run identity or semantic near-duplicate filtering."
+    },
+    "heuristic_safety_findings": 0,
+    "errors": [],
+    "scope": "Offline code/data/docs checks; existing docs/ website, network links, GPU inference and historical benchmark replication are not tested here."
+  },
+  "workflow_smoke_checks": {
+    "supplied_P2_combination": true,
+    "paper_p2_budget_only_run": true,
+    "snapshot_create_and_verify": true,
+    "model_or_API_calls_made": false
+  },
+  "readme_rendering": {
+    "renderer": "Local CommonMark with HTML/table support, custom GitHub-like CSS, Chromium; not a live GitHub screenshot.",
+    "sizes": [
+      {
+        "file": "README.md",
+        "width": 1280,
+        "theme": "light",
+        "all_images_loaded": true,
+        "body_overflow": false,
+        "expanded_details_body_overflow": false
+      },
+      {
+        "file": "README.md",
+        "width": 1280,
+        "theme": "dark",
+        "all_images_loaded": true,
+        "body_overflow": false,
+        "expanded_details_body_overflow": false
+      },
+      {
+        "file": "README.md",
+        "width": 390,
+        "theme": "light",
+        "all_images_loaded": true,
+        "body_overflow": false,
+        "expanded_details_body_overflow": false
+      },
+      {
+        "file": "README_zh-CN.md",
+        "width": 390,
+        "theme": "light",
+        "all_images_loaded": true,
+        "body_overflow": false,
+        "expanded_details_body_overflow": false
+      }
+    ]
+  },
+  "ci": {
+    "configured_python_versions": [
+      "3.11",
+      "3.13"
+    ],
+    "local_python_version": "3.13.5",
+    "github_actions_executed": false
+  },
+  "not_executed": [
+    "Fresh installation/resolution of the full supplied GPU requirements.txt (network unavailable).",
+    "Local Python 3.11 execution (runtime could not be downloaded).",
+    "CUDA/image-model/verifier inference or paid LLM API requests.",
+    "Official benchmark scoring or reproduction of paper-reported scores.",
+    "Historical-run authentication of the provided P2 files or examples/visual_harness.",
+    "All-benchmark semantic near-duplicate filtering or a full security audit."
+  ],
+  "fresh_archive_retest": {
+    "completed": true,
+    "unit_tests_passed": 293,
+    "unit_tests_skipped": 2,
+    "offline_release_checks_passed": true,
+    "P2_preparation_passed": true,
+    "snapshot_creation_and_verification_passed": true,
+    "budget_only_cli_passed": true,
+    "scope": "Checks executed from an independently extracted copy of the release ZIP."
+  },
+  "website": {
+    "docs_directory_included": false,
+    "policy": "Merge code overlay into the existing repository; preserve docs/ unchanged."
+  }
+}

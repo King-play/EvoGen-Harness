@@ -1,0 +1,23 @@
+{
+  "suite": "synthetic_compositional_contracts",
+  "purpose": "pre-registered non-GenEval development/heldout/preservation gate",
+  "seed": 0,
+  "output": "data/synthetic_compositional/compositional_suite_smoke9.jsonl",
+  "num_tasks": 9,
+  "splits": {
+    "target": 3,
+    "heldout": 3,
+    "preservation": 3
+  },
+  "families": {
+    "count": 3,
+    "spatial": 3,
+    "attribute": 3
+  },
+  "leakage_controls": [
+    "No GenEval prompt metadata is read.",
+    "No official evaluator outputs are read.",
+    "Rows do not contain GenEval ids, tags, or benchmark metadata.",
+    "Tasks are generated from generic object, color, count, and spatial templates."
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "schema": "evogen.supplied_split_checksums.v1",
+  "algorithm": "sha256",
+  "files": {
+    "data/evolution/partiprompts_p2_heldout100.jsonl": "2b1a7050bc53df7faec1904fd734ffe517fd6f23f7423e40a47a510fefcd2c10",
+    "data/evolution/partiprompts_p2_preservation100.jsonl": "bbdfd533e69eb5dd13207bf5db65c30a441daf3937bd14f591869deb77f4093f",
+    "data/evolution/partiprompts_p2_target500.jsonl": "9c374337055f22fc7131d69a78a36fb8a238079c6d14d07c9438955dff767712"
+  }
+}

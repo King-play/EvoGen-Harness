@@ -1,0 +1,28 @@
+{
+  "type": "comfyui",
+  "model_family": "declared open-source image generator",
+  "frozen": true,
+  "server": "http://127.0.0.1:8188",
+  "workflow_json": "configs/backends/comfyui_workflow.example.json",
+  "timeout": 300,
+  "poll_interval": 1.0,
+  "inject": [
+    {
+      "node_id": "6",
+      "path": [
+        "inputs",
+        "text"
+      ],
+      "value": "{prompt}"
+    },
+    {
+      "node_id": "3",
+      "path": [
+        "inputs",
+        "seed"
+      ],
+      "value": "{seed}",
+      "type": "int"
+    }
+  ]
+}

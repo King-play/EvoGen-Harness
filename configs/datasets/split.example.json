@@ -1,0 +1,6 @@
+{
+  "target_ratio": 0.5,
+  "heldout_ratio": 0.25,
+  "preservation_ratio": 0.25,
+  "seed": 0
+}

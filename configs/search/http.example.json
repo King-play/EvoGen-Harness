@@ -1,0 +1,9 @@
+{
+  "type": "http",
+  "name": "hosted_search_api",
+  "endpoint": "https://your-api.example.com/search",
+  "headers": {
+    "Authorization": "Bearer ${GEN_HARNESS_API_KEY}"
+  },
+  "timeout": 120
+}

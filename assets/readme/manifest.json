@@ -1,0 +1,41 @@
+{
+  "source": "Author-supplied paper figures and previously prepared EvoGen identity assets",
+  "files": {
+    "badge-arxiv.svg": {
+      "sha256": "5bae219640fabae85056d45b40677742f22b8ca700d34fabf085c744c6bafdf4",
+      "bytes": 488
+    },
+    "badge-license.svg": {
+      "sha256": "1fad6c471ca5b7ae27bcaf2e81324a35430cf4543ce65c55eed314aaad4d6131",
+      "bytes": 492
+    },
+    "badge-python.svg": {
+      "sha256": "71c393e58b64ce72eaf0404ebb0b45dcaadd959d9d18a987290711ebf9447122",
+      "bytes": 473
+    },
+    "cross-generator.jpg": {
+      "sha256": "876ce6f1722fcfebf0dae81d426355c590c34d187a6cc5a8dd256e588e0abe51",
+      "bytes": 914115
+    },
+    "logo-dark.svg": {
+      "sha256": "77f43cfd48dc06d0507d7fd3cfcae1c8cdea022d53b8e8d6fb28539a451970fb",
+      "bytes": 2769
+    },
+    "logo-light.svg": {
+      "sha256": "5d521916f983697cd0ccb2ad3c33f48175b3f2530b9ceaa98ad61c33e92542e7",
+      "bytes": 2769
+    },
+    "overview.png": {
+      "sha256": "d701060aea8663a6fc73c67713a89444cd7d5d5e558dbea5a61987adf2a7dc32",
+      "bytes": 460894
+    },
+    "progressive-repair.jpg": {
+      "sha256": "ed66bf0240b05fe0d702df7aa8e7ebc7b1a982b97a2d09b79d39e9223c6f369c",
+      "bytes": 579572
+    },
+    "responsibility-examples.jpg": {
+      "sha256": "706b0047165456c1ca7c75551e9088fa84ee57fdb526a47ce358cac8e80d88e2",
+      "bytes": 621086
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "type": "external_command",
+  "name": "evidence_or_reference_search",
+  "command": [
+    "{python}",
+    "path/to/your_search_script.py",
+    "--input",
+    "{input_json}",
+    "--output",
+    "{output_json}"
+  ],
+  "input_contract": {
+    "schema": "gen_harness.public_search_input.v1",
+    "description": "The command receives JSON with input and output_json. input contains public prompt text, references, and sanitized visual contract only."
+  }
+}

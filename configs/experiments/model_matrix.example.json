@@ -1,0 +1,32 @@
+{
+  "description": "Example experiment matrix for cross-generator and cross-agent transfer.",
+  "generators": [
+    {
+      "name": "sdxl",
+      "backend_config": "configs/backends/sdxl_external.json"
+    },
+    {
+      "name": "flux",
+      "backend_config": "configs/backends/flux_external.json"
+    },
+    {
+      "name": "comfyui_stack",
+      "backend_config": "configs/backends/comfyui.json"
+    }
+  ],
+  "inspectors": [
+    {
+      "name": "vlm_judge",
+      "inspection_config": "configs/inspection/vlm_judge_external.json"
+    },
+    {
+      "name": "detector_suite",
+      "inspection_config": "configs/inspection/detector_suite_external.json"
+    }
+  ],
+  "splits": {
+    "target": "target",
+    "heldout": "heldout",
+    "preservation": "preservation"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "type": "http",
+  "name": "frozen_flux1_dev",
+  "endpoint": "${GENHARNESS_FLUX_ENDPOINT}",
+  "timeout": 600,
+  "request_metadata": {
+    "model": "FLUX.1-dev",
+    "frozen": true
+  },
+  "input_contract": {
+    "schema": "gen_harness.public_generation_input.v1",
+    "description": "POST {input, seed, request_metadata}; return image_uri or images. The service must honor the supplied seed and keep model weights frozen."
+  }
+}

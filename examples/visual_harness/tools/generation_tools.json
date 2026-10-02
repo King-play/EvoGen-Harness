@@ -1,0 +1,102 @@
+{
+  "component_name": "visual_tools",
+  "component_type": "tools",
+  "version": "0.1.0",
+  "boundary_contract": {
+    "owns": [
+      "generation tool declarations",
+      "tool capability metadata",
+      "external backend execution surface"
+    ],
+    "reads": [
+      "selected visual program",
+      "selected tool name",
+      "generation seed"
+    ],
+    "writes": [
+      "generation result",
+      "tool execution metadata"
+    ],
+    "must_not_own": [
+      "constraint ontology",
+      "workflow recipe text",
+      "skill selection",
+      "experience storage"
+    ]
+  },
+  "tools": {
+    "base_generator": {
+      "name": "base_generator",
+      "type": "external_backend",
+      "capabilities": {
+        "text_to_image": true,
+        "identity_conditioning": false,
+        "style_conditioning": true
+      },
+      "cost": 1,
+      "actual_capabilities": {
+        "text_to_image": true,
+        "identity_conditioning": false,
+        "style_conditioning": true
+      },
+      "generation_parameters": {
+        "split_prompt_channels": true,
+        "clip_max_tokens": 77,
+        "num_inference_steps": 40,
+        "guidance_scale": 5.0
+      }
+    },
+    "scene_assembly": {
+      "name": "scene_assembly",
+      "type": "frozen_open_source_generator_wrapper",
+      "capabilities": {
+        "text_to_image": true,
+        "deterministic_scene_assembly": true,
+        "identity_conditioning": false,
+        "style_conditioning": true
+      },
+      "cost": 2,
+      "actual_capabilities": {
+        "text_to_image": true,
+        "deterministic_scene_assembly": true,
+        "uses_frozen_source_generator": true,
+        "uses_image_llm": false,
+        "uses_official_labels": false,
+        "uses_fallback_images": false
+      },
+      "generation_parameters": {
+        "split_prompt_channels": true,
+        "clip_max_tokens": 77,
+        "num_inference_steps": 40,
+        "guidance_scale": 5.0,
+        "action_layouts_configured_by_backend": true
+      }
+    },
+    "identity_generator": {
+      "name": "identity_generator",
+      "type": "external_backend",
+      "capabilities": {
+        "text_to_image": true,
+        "identity_conditioning": true,
+        "style_conditioning": true
+      },
+      "cost": 2,
+      "actual_capabilities": {
+        "text_to_image": true,
+        "identity_conditioning": true,
+        "style_conditioning": true
+      }
+    }
+  },
+  "search_tools": {
+    "external_search": {
+      "name": "external_search",
+      "type": "external_command",
+      "capabilities": {
+        "text_evidence": true,
+        "image_reference_retrieval": true,
+        "metadata_retrieval": true
+      }
+    }
+  }
+}

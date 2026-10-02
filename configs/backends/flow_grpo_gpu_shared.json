@@ -1,0 +1,20 @@
+{
+  "type": "flow_grpo",
+  "name": "flow_grpo_gpu_shared",
+  "model_family": "SD3.5 + Flow-GRPO",
+  "frozen": true,
+  "model_root": "${GENHARNESS_FLOW_GRPO_MODEL_ROOT}",
+  "image_cache_dir": "runs/flow_grpo_gpu_shared_cache",
+  "trace_cache_dir": "runs/flow_grpo_gpu_shared_trace_cache",
+  "torch_dtype": "bfloat16",
+  "split_prompt_channels": true,
+  "clip_max_tokens": 77,
+  "t5_max_tokens": 256,
+  "min_free_cuda_memory_gb": 12,
+  "local_files_only": true,
+  "enable_model_cpu_offload": false,
+  "enable_sequential_cpu_offload": false,
+  "enable_attention_slicing": false,
+  "enable_vae_slicing": false,
+  "enable_vae_tiling": false
+}

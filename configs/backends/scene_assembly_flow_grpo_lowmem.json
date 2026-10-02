@@ -1,0 +1,44 @@
+{
+  "type": "scene_assembly",
+  "name": "scene_assembly_flow_grpo_lowmem",
+  "model_family": "SD3.5 + Flow-GRPO with deterministic scene assembly",
+  "frozen": true,
+  "canvas_size": 1024,
+  "background_color": [242, 239, 225],
+  "source_num_inference_steps": 40,
+  "source_guidance_scale": 5.0,
+  "action_layouts": {
+    "directional": {
+      "mode": "directional",
+      "aliases": ["chasing", "chase", "pursuing", "pursuit", "fleeing"]
+    },
+    "vertical": {
+      "mode": "vertical",
+      "aliases": ["jumping over", "jump over", "leaping over", "leap over"]
+    },
+    "contact": {
+      "mode": "contact",
+      "aliases": ["playing with", "interacting with", "holding", "touching"]
+    }
+  },
+  "image_cache_dir": "runs/scene_assembly_flow_grpo_cache",
+  "trace_cache_dir": "runs/scene_assembly_flow_grpo_trace_cache",
+  "source_backend": {
+    "type": "flow_grpo",
+    "name": "scene_assembly_flow_grpo_source",
+    "model_family": "SD3.5 + Flow-GRPO",
+    "frozen": true,
+    "model_root": "${GENHARNESS_FLOW_GRPO_MODEL_ROOT}",
+    "image_cache_dir": "runs/scene_assembly_flow_grpo_source_cache",
+    "trace_cache_dir": "runs/scene_assembly_flow_grpo_source_trace_cache",
+    "torch_dtype": "bfloat16",
+    "split_prompt_channels": true,
+    "min_free_cuda_memory_gb": 12,
+    "local_files_only": true,
+    "fast_import_package_distributions": true,
+    "enable_model_cpu_offload": true,
+    "enable_attention_slicing": true,
+    "enable_vae_slicing": true,
+    "enable_vae_tiling": true
+  }
+}

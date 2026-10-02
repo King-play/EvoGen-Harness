@@ -1,0 +1,14 @@
+{
+  "type": "http",
+  "name": "frozen_janus_pro",
+  "endpoint": "${GENHARNESS_JANUS_PRO_ENDPOINT}",
+  "timeout": 600,
+  "request_metadata": {
+    "model": "Janus-Pro",
+    "frozen": true
+  },
+  "input_contract": {
+    "schema": "gen_harness.public_generation_input.v1",
+    "description": "Cross-generator TRACE adapter; the service must honor the supplied seed and keep model weights frozen."
+  }
+}

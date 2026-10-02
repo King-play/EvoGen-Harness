@@ -1,0 +1,36 @@
+cff-version: 1.2.0
+message: "Please cite the EvoGen-Harness paper when using this implementation."
+type: software
+title: EvoGen-Harness
+version: 0.2.0
+license: MIT
+repository-code: "https://github.com/King-play/EvoGen-Harness"
+url: "https://king-play.github.io/EvoGen-Harness/"
+authors:
+  - family-names: Luo
+    given-names: Jiabin
+  - family-names: Liu
+    given-names: Yinan
+  - family-names: Meng
+    given-names: Chunlei
+  - family-names: Guo
+    given-names: Yufei
+preferred-citation:
+  type: article
+  title: "EvoGen-Harness: Learning Where and How to Evolve Image-Generation Harnesses"
+  authors:
+    - family-names: Luo
+      given-names: Jiabin
+    - family-names: Liu
+      given-names: Yinan
+    - family-names: Meng
+      given-names: Chunlei
+    - family-names: Guo
+      given-names: Yufei
+  year: 2026
+  journal: arXiv
+  url: "https://arxiv.org/abs/2610.00383"
+  identifiers:
+    - type: other
+      value: "arXiv:2610.00383"
+      description: arXiv preprint identifier

@@ -1,0 +1,16 @@
+{
+  "type": "external_command",
+  "name": "vlm_or_detector_inspector",
+  "command": [
+    "{python}",
+    "path/to/your_inspect_script.py",
+    "--input",
+    "{input_json}",
+    "--output",
+    "{output_json}"
+  ],
+  "input_contract": {
+    "schema": "gen_harness.public_inspection_input.v1",
+    "description": "The command receives JSON with input and output_json. input contains public generation prompt, image URI/path, references, and constraints with public IDs such as constraint_0. Return constraint_results keyed by public IDs. The adapter remaps results internally."
+  }
+}

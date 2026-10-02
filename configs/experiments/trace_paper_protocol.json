@@ -1,0 +1,50 @@
+{
+  "schema": "gen_harness.trace_protocol.v1",
+  "name": "paper_trace_v1",
+  "description": "Reproducibility contract for the Gen-Harness TRACE evolution protocol.",
+  "llm": {
+    "model_family": "gpt-4.1",
+    "model_snapshot": "gpt-4.1-2025-04-14",
+    "snapshot_required": true,
+    "temperature_localizer": 0.0,
+    "temperature_proposer": 0.1
+  },
+  "generator": {
+    "default_model_family": "FLUX.1-dev",
+    "default_backend_type": "flux_diffusers",
+    "default_backend_config": "configs/backends/flux1_dev_diffusers.json",
+    "supported_backend_types": [
+      "flux_diffusers",
+      "flow_grpo",
+      "http",
+      "external_command",
+      "comfyui"
+    ],
+    "model_family": "FLUX.1-dev",
+    "license_note": "Open-weight FLUX.1-dev non-commercial license; not OSI-style open source.",
+    "frozen": true
+  },
+  "verifier": {
+    "detector": "OWLv2-base",
+    "semantic_verifier": "NVILA-Lite-2B",
+    "frozen": true
+  },
+  "trace": {
+    "frontier_size": 3,
+    "stochastic_conditions": 4,
+    "candidate_budget_per_responsibility": 3,
+    "max_depth": 3,
+    "preservation_weight": 0.5,
+    "execution_cost_weight": 0.05,
+    "regression_epsilon": 0.01
+  },
+  "dataset": {
+    "name": "PartiPrompts",
+    "stream": "P2",
+    "target": 500,
+    "heldout": 100,
+    "preservation": 100,
+    "benchmark_labels_allowed": false,
+    "official_evaluator_allowed": false
+  }
+}

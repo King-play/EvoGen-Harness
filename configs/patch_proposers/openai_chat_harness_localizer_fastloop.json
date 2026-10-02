@@ -1,0 +1,14 @@
+{
+  "type": "openai_chat_harness_localizer",
+  "name": "fast_loop_llm_harness_localizer",
+  "base_url": "${GENHARNESS_LLM_BASE_URL}",
+  "model": "${GENHARNESS_LLM_MODEL}",
+  "model_snapshot": "${GENHARNESS_LLM_MODEL_SNAPSHOT}",
+  "protocol": "paper_trace_v1",
+  "headers": {
+    "Authorization": "Bearer ${GENHARNESS_LLM_API_KEY}"
+  },
+  "temperature": 0.0,
+  "max_localization_attempts": 2,
+  "timeout": 240
+}

@@ -1,0 +1,18 @@
+{
+  "type": "external_command",
+  "name": "diffusers_or_agent_backend",
+  "model_family": "declared open-source image generator",
+  "frozen": true,
+  "command": [
+    "{python}",
+    "path/to/your_generate_script.py",
+    "--input",
+    "{input_json}",
+    "--output",
+    "{output_json}"
+  ],
+  "input_contract": {
+    "schema": "gen_harness.public_generation_input.v1",
+    "description": "The command receives JSON with input, seed, and output_json. input contains public prompt semantics only: initial_prompt, generation_prompt, sanitized contract, references, and selected tool metadata. It does not receive the full task or full program."
+  }
+}
