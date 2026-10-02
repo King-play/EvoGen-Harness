@@ -1,0 +1,2 @@
+# Lightweight development install. No model weights or CUDA dependencies.
+-e .[dev]
