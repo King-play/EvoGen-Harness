@@ -41,18 +41,12 @@
 ```bash
 git clone https://github.com/King-play/EvoGen-Harness.git
 cd EvoGen-Harness
-python3.11 -m venv .venv
-source .venv/bin/activate
-python -m pip install --upgrade pip
-python -m pip install -e ".[dev]"
-python -m pytest -q -rs
-python scripts/check_release.py
-python scripts/prepare_evolution.py --output runs/quickstart/evolution_tasks.jsonl
+conda create -n genharness python=3.11 -y
+conda activate genharness
+pip install --upgrade pip
+pip install -r requirements.txt
 ```
 
-Windows PowerShell 用 `.venv\Scripts\Activate.ps1` 激活环境。以上步骤不调用模型、不需要 API Key，也不安装完整 CUDA 环境。可选的集成测试会在缺少相关模型或软件时明确跳过。
-
-**这次代码包已经包含 P2 的 500／100／100 条数据。** 合并脚本校验现有文件后生成工作副本，不会重新抽样。原始 manifest 记录的过滤范围是：针对列出的 GenEval2 提示词文件做标准化精确匹配。不能把这一记录扩写为已完成全部三个 benchmark 的语义近重复过滤，也不能仅凭数量断定它就是某次历史论文实验的同一划分。详见 [data/evolution/README.md](data/evolution/README.md)。
 
 [英文 README 的预算检查命令](README.md#quick-start)可继续检查演化流程的输入规模。真正生成图像前，请完成[模型、GPU 与 API 配置](documentation/INSTALL.md)；不要直接删除预算命令里的 `--dry-run-budget` 就开始正式实验。
 
