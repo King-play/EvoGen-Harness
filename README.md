@@ -303,8 +303,4 @@ The existing GitHub Pages site remains in `docs/` when this code is merged into 
 
 Also available as [BibTeX](CITATION.bib) and [CITATION.cff](CITATION.cff).
 
-## Contributing and license
 
-Bug reports and focused pull requests are welcome. Please read [CONTRIBUTING.md](CONTRIBUTING.md); avoid posting credentials or private prompts in issues. See [SECURITY.md](SECURITY.md) for security reporting.
-
-The project code retains the **[MIT License](LICENSE)** supplied by the authors. Third-party datasets and model weights retain their own terms: see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). In particular, the code license does not relicense FLUX.1-dev weights or GenEval2 data. Models, private credentials, and historical experiment logs are not bundled.
