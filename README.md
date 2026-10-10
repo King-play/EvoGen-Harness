@@ -267,8 +267,7 @@ Then run the official WISE/WiScore evaluator from `$GENHARNESS_WISE_OFFICIAL_REP
 | Evolve, snapshot, and freeze a persistent harness | [TRACE workflow](documentation/EVOLUTION.md) |
 | Prepare and evaluate GenEval2, T2I-CompBench++, and WISE | [Evaluation](documentation/EVALUATION.md) |
 | Understand the module boundaries | [Architecture](documentation/ARCHITECTURE.md) |
-| Inspect the supplied data and artifact provenance | [Release scope](documentation/REPRODUCIBILITY.md) |
-| Merge this release without replacing the website | [中文上传说明](UPLOAD_GITHUB_zh.md) |
+
 
 ## Repository layout
 
