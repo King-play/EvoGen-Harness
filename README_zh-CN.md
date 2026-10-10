@@ -58,8 +58,7 @@ pip install -r requirements.txt
 | 复制 harness 工作目录、执行 TRACE、保存和校验快照 | [EVOLUTION.md](documentation/EVOLUTION.md) |
 | 三个 benchmark 的提示词准备、生成、导出与独立评估 | [EVALUATION.md](documentation/EVALUATION.md) |
 | 核心模块与五种职责的边界 | [ARCHITECTURE.md](documentation/ARCHITECTURE.md) |
-| 本次实际交付材料与实验记录的对应关系 | [REPRODUCIBILITY.md](documentation/REPRODUCIBILITY.md) |
-| 保留网页，上传代码并替换仓库 README | [UPLOAD_GITHUB_zh.md](UPLOAD_GITHUB_zh.md) |
+
 
 `examples/visual_harness/` 是随源代码提供的配置目录，本包没有将其声明为历史论文最终评估快照。快照工具保存的是你明确选中的真实目录，不能凭空生成过去实验的结果。
 
