@@ -76,6 +76,4 @@ pip install -r requirements.txt
 }
 ```
 
-## 许可与贡献
 
-代码保留原始 [MIT License](LICENSE)。第三方数据与模型使用各自许可，不因项目代码开源而变为 MIT，详见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。贡献代码前请阅读 [CONTRIBUTING.md](CONTRIBUTING.md)，不要在公开 Issue 中提交密钥、私人路径或未授权公开的材料。
