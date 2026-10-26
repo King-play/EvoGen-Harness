@@ -17,9 +17,9 @@ python -m pip install --no-deps -e .
 python -m pip check
 ```
 
-The original package pins in `requirements.txt` are preserved; a CUDA wheel index was added so the `+cu124` packages have a source. This is an **author-supplied environment specification**, not a newly regenerated lockfile or a claim that all future package indexes will provide the same wheels. CUDA build selection follows the [PyTorch 2.6 installation table](https://pytorch.org/get-started/previous-versions/#v260). Git and internet access are required by the VCS/wheel entries. Official benchmark evaluators have their own dependencies and should use separate environments.
+`requirements.txt` retains the supplied inference pins with a CUDA wheel index and an OpenCV compatibility correction. OpenCV is pinned to 4.11.0.86 because the supplied OpenCV 5 / NumPy 1.26 pair conflicts. This is an **author-supplied environment specification with documented repairs**, not a freshly resolved lockfile. CUDA build selection follows the [PyTorch 2.6 installation table](https://pytorch.org/get-started/previous-versions/#v260). Git and internet access are required by the VCS/wheel entries. Official benchmark evaluators have their own dependencies and should use separate environments.
 
-The release's local test environment and checks actually performed are recorded in [release validation](release_validation.json). Full installation of the GPU environment and real model inference were not performed in that CPU validation session.
+Run the unit tests and `python -m pip check` in your selected environment. Unit tests use isolated test doubles; a passing test suite does not establish model availability, image quality or benchmark scores.
 
 ## Credentials and model directories
 

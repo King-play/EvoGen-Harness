@@ -1770,12 +1770,12 @@ def test_compositional_prompt_uses_structured_object_requirements(tmp_path):
     prompt = workflow["compiled_prompt"]
 
     assert workflow["selected_prompt_family"] == "clutter_and_occlusion_control"
-    assert "exactly one visible hair drier" in prompt
-    assert "exactly one visible cake" in prompt
+    assert "Exactly 1 visible instances of hair drier" in prompt
+    assert "Exactly 1 visible instances of cake" in prompt
     assert "[{\"class\"" not in prompt
-    assert "exactly one visible cake" in prompt
+    assert "Exactly 1 visible instances of cake" in prompt
     assert "Skill rules:" not in prompt
-    assert len(prompt.split()) < 80
+    assert workflow["t5_prompt"] == prompt
 
 
 def test_visual_harness_memory_has_no_evaluation_history():
@@ -1786,7 +1786,6 @@ def test_visual_harness_memory_has_no_evaluation_history():
         "failure_clusters.jsonl",
         "validated_patches.jsonl",
         "regression_cases.jsonl",
-        "successful_repairs.jsonl",
         "weaknesses.jsonl",
     ]
     for name in history_files:
@@ -1840,7 +1839,7 @@ def test_geneval_position_prompt_family_adds_layout_program(tmp_path):
     assert "dog in the right edge band" in prompt
     assert "teddy bear in the left edge band" in prompt
     assert "no overlap" in prompt
-    assert len(prompt.split()) < 120
+    assert workflow["t5_prompt"] == prompt
 
 
 
@@ -2363,14 +2362,11 @@ def test_compositional_prompt_frontloads_attribute_binding_program(tmp_path):
     workflow = repo.build_skills().compile_workflow(task, "compositional_generation", contract, {}, memory_context={})
     prompt = workflow["compiled_prompt"]
 
-    assert "exact colors: red cup, blue book" in prompt.lower()
-    assert "Recognizable cup, visibly red" in prompt
-    assert "Recognizable book, visibly blue" in prompt
-    assert "Recognizable cup" in prompt
+    assert "Attribute binding: cup has the requested attribute red" in prompt
+    assert "Attribute binding: book has the requested attribute blue" in prompt
     assert "Skill rules:" not in prompt
-    assert "Exact colors: red cup, blue book" in workflow["clip_prompt"]
-    assert "Recognizable cup, visibly red" in workflow["clip_prompt"]
-    assert "Recognizable book, visibly blue" in workflow["clip_prompt"]
+    assert "Attribute binding: cup has the requested attribute red" in workflow["clip_prompt"]
+    assert "Attribute binding: book has the requested attribute blue" in workflow["clip_prompt"]
     assert workflow["clip_prompt"] != prompt
     assert workflow["t5_prompt"] == prompt
     assert len(prompt.split()) < 150
@@ -2518,9 +2514,8 @@ def test_compositional_skill_count_prompt_uses_exact_separate_plural(tmp_path):
     contract = repo.build_policy().compile_contract(task)
     workflow = repo.build_skills().compile_workflow(task, "compositional_generation", contract, {})
 
-    assert "Exactly five complete books" in workflow["compiled_prompt"]
-    assert "three in the back row and two in the front row" in workflow["compiled_prompt"]
-    assert "5 instances of book" not in workflow["compiled_prompt"]
+    assert "Exactly 5 visible instances of book" in workflow["compiled_prompt"]
+    assert "three in the back row" not in workflow["compiled_prompt"]
 
 
 
@@ -3482,7 +3477,7 @@ def test_detector_keeps_supported_class_evidence_in_mixed_open_vocab_constraint(
     assert row["unsupported_classes"] == ["bagel"]
 
 
-def test_inspection_canonicalizes_common_irregular_object_aliases():
+def test_inspection_does_not_substitute_undeclared_object_labels():
     from gen_harness.inspection import DetectorObjectRequirementInspection
 
     task = GenerationTask.from_dict({
@@ -3507,11 +3502,11 @@ def test_inspection_canonicalizes_common_irregular_object_aliases():
 
     result = inspector.inspect(task, {}, {"object_counts": {"sheep": 4}})
 
-    assert result["count_1"]["passed"] is True
+    assert result["count_1"]["passed"] is False
     assert result["count_1"]["object_counts"] == {"sheep": 4}
 
 
-def test_detector_spatial_inspection_maps_mug_to_coco_cup_alias():
+def test_detector_spatial_inspection_keeps_distinct_object_labels():
     from gen_harness.inspection import DetectorObjectRequirementInspection
 
     task = GenerationTask.from_dict({
@@ -3545,9 +3540,8 @@ def test_detector_spatial_inspection_maps_mug_to_coco_cup_alias():
     })
 
     row = result["spatial_1"]
-    assert row["passed"] is True
-    assert row["evidence_status"] == "confirmed"
-    assert row["spatial_relations_passed"][0]["object"] == "mug"
+    assert row["passed"] is False
+    assert row.get("spatial_relations_passed", []) == []
 
 
 def test_detector_object_requirement_uses_persistent_command(tmp_path):
@@ -5479,30 +5473,9 @@ def test_detector_utils_required_classes_include_relation_and_attribute_objects(
                 }
             ]
         }
-    }) == ["pizza", "cup"]
+    }) == ["pizza", "mug"]
 
 
-def test_detector_utils_filters_bear_when_teddy_bear_confounder_overlaps():
-    module_path = ROOT / "scripts" / "detector_utils.py"
-    spec = importlib.util.spec_from_file_location("detector_utils", module_path)
-    assert spec is not None and spec.loader is not None
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-
-    detections = [
-        {"class": "bear", "score": 0.81, "bbox": [10, 10, 100, 100]},
-        {"class": "teddy bear", "score": 0.92, "bbox": [12, 12, 98, 98]},
-        {"class": "bear", "score": 0.88, "bbox": [200, 200, 300, 300]},
-    ]
-    detections_by_class = {
-        "bear": [detections[0], detections[2]],
-        "teddy bear": [detections[1]],
-    }
-
-    filtered = module.filter_confounded_detections(detections, detections_by_class)
-
-    assert [row["class"] for row in filtered] == ["bear"]
-    assert filtered[0]["bbox"] == [200, 200, 300, 300]
 
 
 
@@ -5618,7 +5591,8 @@ def test_clip_prompt_keeps_complete_exact_count_layout_without_fragments(tmp_pat
     contract = repo.build_policy().compile_contract(task)
     workflow = repo.build_skills().compile_workflow(task, "compositional_generation", contract, {}, memory_context={})
 
-    assert "Exactly six complete cars in a clean 2x3 grid" in workflow["clip_prompt"]
+    assert "Exactly 6 visible instances of car" in workflow["clip_prompt"]
+    assert "2x3 grid" not in workflow["clip_prompt"]
     assert "Exactly Plain" not in workflow["clip_prompt"]
 
 
@@ -5626,13 +5600,6 @@ def test_clip_prompt_keeps_complete_exact_count_layout_without_fragments(tmp_pat
 
 
 
-def test_lamp_realizability_clip_phrases_support_detector_identity():
-    from gen_harness.visual_realizability import object_realizability_clip_phrases
-
-    phrases = object_realizability_clip_phrases("lamp")
-
-    assert "lamp with shade stand and base" in phrases
-    assert "single table lamp silhouette" in phrases
 
 
 
@@ -6907,7 +6874,7 @@ def test_visual_memory_enforces_hard_row_size_limit(tmp_path, monkeypatch):
     assert row["visual_result"]["image_uri"] == "/tmp/x.png"
 
 
-def test_failure_debugger_assigns_component_scoped_root_cause():
+def test_failure_debugger_requires_evidence_for_component_attribution():
     exp = VisualExperience(
         experience_id="exp_attr",
         task_id="task_attr",
@@ -6931,14 +6898,15 @@ def test_failure_debugger_assigns_component_scoped_root_cause():
     diagnosis = FailureDebugger().diagnose(exp).to_dict()
 
     assert diagnosis["schema"] == "gen_harness.failure_diagnosis.v1"
-    assert diagnosis["suspected_component"] == "skills"
+    assert diagnosis["suspected_component"] == "unknown"
+    assert diagnosis["confidence"] is None
     assert diagnosis["leakage_safe"] is True
     assert diagnosis["fallback_used"] is False
-    assert diagnosis["next_action"]["type"] == "patch_skill_prompt_family"
-    assert "attribute" in diagnosis["root_cause"].lower()
+    assert diagnosis["next_action"]["type"] == "collect_more_internal_evidence"
+    assert "attribute_binding_mismatch" in diagnosis["root_cause"]
 
 
-def test_failure_debugger_assigns_prompt_budget_attempt_errors_to_skills():
+def test_failure_debugger_records_prompt_errors_without_guessing_a_cause():
     exp = VisualExperience(
         experience_id="exp_budget",
         task_id="task_budget",
@@ -6967,9 +6935,10 @@ def test_failure_debugger_assigns_prompt_budget_attempt_errors_to_skills():
 
     diagnosis = FailureDebugger().diagnose(exp).to_dict()
 
-    assert diagnosis["suspected_component"] == "skills"
-    assert diagnosis["next_action"]["type"] == "patch_skill_prompt_family"
-    assert "prompt budget" in diagnosis["root_cause"].lower()
+    assert diagnosis["suspected_component"] == "unknown"
+    assert diagnosis["confidence"] is None
+    assert diagnosis["next_action"]["type"] == "collect_more_internal_evidence"
+    assert "prompt exceeds" in diagnosis["evidence"]["attempt_errors"][0].lower()
     assert diagnosis["evidence"]["attempt_error_count"] == 1
 
 
@@ -7000,7 +6969,7 @@ def test_slow_loop_attaches_failure_diagnosis_before_weakness_mining(tmp_path):
     runner._attach_failure_diagnoses([exp])
 
     assert exp.suspected_component is None
-    assert exp.metadata["failure_diagnosis"]["suspected_component"] == "skills"
+    assert exp.metadata["failure_diagnosis"]["suspected_component"] == "unknown"
     assert exp.metadata["failure_diagnosis"]["leakage_safe"] is True
 
 
@@ -7151,17 +7120,6 @@ def _load_detector_utils_module():
     return module
 
 
-def test_detector_utils_keeps_explicitly_requested_confounder_class():
-    module = _load_detector_utils_module()
-    teddy = {"class": "teddy bear", "score": 0.91, "bbox": [10, 10, 50, 50]}
-
-    kept = module.filter_confounded_detections(
-        [teddy],
-        {"teddy bear": [teddy]},
-        required_classes=["dog", "teddy bear"],
-    )
-
-    assert kept == [teddy]
 
 
 def test_detector_utils_classwise_nms_removes_only_overlapping_duplicates():
@@ -7652,8 +7610,8 @@ def test_fast_loop_inventory_distance_penalizes_over_and_under_counts_monotonica
         }
     }
 
-    assert controller._hard_inventory_error(closer) == 4
-    assert controller._hard_inventory_error(farther) == 6
+    assert controller._hard_inventory_metrics(closer)[0] == 4
+    assert controller._hard_inventory_metrics(farther)[0] == 6
 
 
 def test_fast_loop_combined_score_penalizes_failed_attribute_subresult():

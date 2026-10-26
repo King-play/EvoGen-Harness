@@ -80,6 +80,21 @@ def test_constraint_indexed_evidence_contains_all_k_outcomes():
     validate_trace_evidence(evidence, expected_k=4)
 
 
+def test_weakness_miner_accepts_empty_experience_stream():
+    assert WeaknessMiner().mine([]) == []
+
+
+def test_image_metric_weakness_aggregates_every_stochastic_execution():
+    rows = [_experience(seed, passed=True) for seed in range(4)]
+    for row in rows:
+        row.verification_result["image_metrics"] = {"prompt_alignment": 0.2}
+    weaknesses = WeaknessMiner(min_support=2, expected_stochastic_conditions=4).mine(rows)
+    assert len(weaknesses) == 1
+    assert weaknesses[0].failure_symptom == "low_prompt_alignment"
+    assert weaknesses[0].support_count == 4
+    assert weaknesses[0].evidence["trace_evidence"]["aggregation"]["exploration_complete_for_expected_k"] is True
+
+
 def test_constraint_indexed_evidence_rejects_missing_stochastic_execution():
     with pytest.raises(ValueError, match="K executions"):
         WeaknessMiner(min_support=1, expected_stochastic_conditions=4).mine(

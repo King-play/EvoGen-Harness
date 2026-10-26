@@ -20,7 +20,7 @@ SCRIPT_DIR = Path(__file__).resolve().parent
 if str(SCRIPT_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPT_DIR))
 
-from detector_utils import classwise_nms, expanded_detector_queries, materialize_image, required_classes
+from detector_utils import classwise_nms, materialize_image, required_classes
 
 
 DEFAULT_MODEL = "google/owlv2-base-patch16-ensemble"
@@ -97,7 +97,7 @@ def detect(payload: dict[str, Any], state: dict[str, Any], args: argparse.Namesp
     classes = required_classes(payload)
     if not classes:
         return {"object_counts": {}, "detected_objects": [], "note": "no detector-checkable classes"}
-    queries = expanded_detector_queries(classes)
+    queries = list(classes)
     image_path = materialize_image(payload.get("generation", {}))
     from PIL import Image
 
@@ -171,6 +171,10 @@ def main() -> None:
     args = parser.parse_args()
     if not 0.0 <= args.uncertainty_threshold <= args.threshold <= 1.0:
         parser.error("require 0 <= uncertainty-threshold <= threshold <= 1")
+    if not 0.0 <= args.nms_threshold <= 1.0:
+        parser.error("require 0 <= nms-threshold <= 1")
+    if not (args.serve or args.check_model) and (not args.input or not args.output):
+        parser.error("--input and --output are required unless --serve or --check-model is used")
     state = load_model(args.model, args.device, args.local_files_only)
     if args.check_model:
         print(json.dumps({"ok": True, "model": args.model, "device": state["device"]}))
@@ -185,8 +189,6 @@ def main() -> None:
                 result = {"error": f"{exc.__class__.__name__}: {exc}"}
             print(json.dumps(result, ensure_ascii=False), flush=True)
         return
-    if not args.input or not args.output:
-        parser.error("--input and --output are required unless --serve is used")
     payload = json.loads(Path(args.input).read_text(encoding="utf-8"))
     Path(args.output).write_text(json.dumps(detect(payload, state, args), ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 

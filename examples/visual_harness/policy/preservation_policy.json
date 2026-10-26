@@ -1,0 +1,39 @@
+{
+  "component_name": "preservation_policy",
+  "component_type": "policy",
+  "version": "0.1.0",
+  "boundary_contract": {
+    "owns": [
+      "preservation requirements for repairs",
+      "repair safety constraints"
+    ],
+    "reads": [
+      "visual constraint types",
+      "patch intent"
+    ],
+    "writes": [
+      "preservation fields on patch validation inputs"
+    ],
+    "must_not_own": [
+      "workflow recipe selection",
+      "tool routing",
+      "experience storage",
+      "benchmark scoring"
+    ]
+  },
+  "default_preservation": [
+    "composition",
+    "lighting",
+    "safe_regions"
+  ],
+  "repair_preservation": {
+    "identity": [
+      "style",
+      "layout"
+    ],
+    "style": [
+      "identity",
+      "layout"
+    ]
+  }
+}

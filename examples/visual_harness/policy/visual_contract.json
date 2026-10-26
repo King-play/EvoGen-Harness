@@ -1,0 +1,82 @@
+{
+  "component_name": "visual_policy",
+  "component_type": "policy",
+  "version": "0.1.0",
+  "boundary_contract": {
+    "owns": [
+      "constraint ontology",
+      "visual contract rules",
+      "evidence requirements",
+      "prompt governance policy"
+    ],
+    "reads": [
+      "user prompt",
+      "task metadata",
+      "declared references"
+    ],
+    "writes": [
+      "typed visual constraints",
+      "verification requirements",
+      "contract-level prompt guidance"
+    ],
+    "must_not_own": [
+      "workflow recipe implementation",
+      "tool capability declarations",
+      "tool routing",
+      "experience storage"
+    ]
+  },
+  "constraint_ontology": [
+    "identity",
+    "style",
+    "layout",
+    "material",
+    "negative",
+    "count",
+    "spatial",
+    "action",
+    "attribute",
+    "text",
+    "external_fact",
+    "grounded_identity",
+    "historical_reference",
+    "quality",
+    "aesthetic",
+    "prompt_alignment"
+  ],
+  "auto_include_negative_constraints": false,
+  "negative_constraints": [],
+  "verification_rules": {
+    "identity": "same subject identity as identity reference",
+    "style": "same artistic style as style reference",
+    "negative": "target concept must be absent",
+    "quality": "image should be coherent, detailed, sharp, and visually polished",
+    "aesthetic": "image should have strong composition, lighting, color harmony, and professional finish",
+    "prompt_alignment": "image should faithfully satisfy the initial user prompt and expanded visual brief"
+  },
+  "evidence_required_for": [
+    "external_fact",
+    "grounded_identity",
+    "historical_reference"
+  ],
+  "prompt_governance": {
+    "default_quality_profile": [
+      "clear primary subject and readable scene composition",
+      "specific camera framing and focal length cues",
+      "explicit lighting direction and atmosphere",
+      "coherent color palette",
+      "high detail without clutter",
+      "professional image-generation phrasing",
+      "avoid text, logos, watermarks, distorted anatomy, extra limbs, and low-resolution artifacts"
+    ],
+    "task_family_profiles": {
+      "vague_prompt": [
+        "resolve vague intent into a concrete subject, setting, style, composition, lighting, color palette, and quality bar",
+        "preserve the user intent instead of changing the requested scene"
+      ],
+      "multi_reference": [
+        "preserve declared reference roles and keep identity/style/layout bindings explicit"
+      ]
+    }
+  }
+}

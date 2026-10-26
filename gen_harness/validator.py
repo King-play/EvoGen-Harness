@@ -131,7 +131,7 @@ class PatchValidator:
             if not task_rows:
                 raise ValueError(f"TRACE harness evaluation requires a non-empty {name} split")
             score, breakdown, cost = self._evaluate_tasks(task_rows, seed_list)
-            rows[name] = {"score": score, "breakdown": breakdown, "mean_model_calls": cost}
+            rows[name] = {"score": score, "breakdown": breakdown, "mean_attempt_cost_proxy": cost}
         return rows
 
     def validate(
@@ -406,9 +406,6 @@ class PatchValidator:
             "internal_verifier_only": True,
         }
 
-    def _score_tasks(self, tasks: List[GenerationTask], seeds: Sequence[int]) -> float:
-        score, _, _ = self._evaluate_tasks(tasks, seeds)
-        return score
 
     def _run_experiences(self, tasks: List[GenerationTask], seeds: Sequence[int]):
         executor = HarnessExecutor(
@@ -424,46 +421,15 @@ class PatchValidator:
         )
         for seed in seeds:
             for task in tasks:
-                yield from executor.run_task(task, seed=seed)
-
-    def _pass_rate(self, tasks: List[GenerationTask], seeds: Sequence[int]) -> float:
-        if not tasks:
-            return 1.0
-        total = 0
-        passed = 0
-        for exp in self._run_experiences(tasks, seeds):
-            total += 1
-            passed += int(bool(exp.verification_result.get("passed")))
-        return passed / total if total else 1.0
-
-    def _image_metric_score(self, tasks: List[GenerationTask], seeds: Sequence[int]) -> float:
-        if not tasks:
-            return 1.0
-        groups: Dict[tuple[str, int], Dict[str, float]] = {}
-        for exp in self._run_experiences(tasks, seeds):
-            seed = int(exp.visual_result.get("seed", 0) or 0)
-            key = (exp.task_id, seed)
-            result = exp.verification_result or {}
-            metrics = result.get("image_metrics", {}) if isinstance(result, dict) else {}
-            if not isinstance(metrics, dict):
-                metrics = {}
-            merged = groups.setdefault(key, {})
-            for name in self.image_metrics:
-                value = metrics.get(name, result.get(name))
-                if isinstance(value, bool) or not isinstance(value, (int, float)):
-                    continue
-                merged[name] = min(1.0, max(0.0, float(value)))
-        image_scores = []
-        for metrics in groups.values():
-            values = [metrics[name] for name in self.image_metrics if name in metrics]
-            if values:
-                image_scores.append(sum(values) / len(values))
-        return sum(image_scores) / len(image_scores) if image_scores else 0.0
+                experiences = executor.run_task(task, seed=seed)
+                if not experiences:
+                    raise ValueError(f"validation produced no visual verification evidence for {task.task_id}")
+                yield from experiences
 
 
     def _evaluate_tasks(self, tasks: List[GenerationTask], seeds: Sequence[int]) -> tuple[float, Dict[str, Dict[str, float]], float]:
         if not tasks:
-            return 1.0, {}, 0.0
+            raise ValueError("validation requires a non-empty task set")
         total = 0
         passed = 0
         breakdown_acc: Dict[str, Dict[str, float]] = {}
@@ -507,6 +473,8 @@ class PatchValidator:
                         continue
                     merged[name] = min(1.0, max(0.0, float(value)))
 
+        if not total:
+            raise ValueError("validation produced no visual verification evidence")
         breakdown = {}
         for ctype, row in breakdown_acc.items():
             row_total = row["total"] or 1.0
@@ -516,7 +484,7 @@ class PatchValidator:
 
         if self.metric_mode == "pass_rate":
             runtime_cost = sum(calls_by_execution.values()) / max(1, len(calls_by_execution))
-            return (passed / total if total else 1.0), breakdown, runtime_cost
+            return (passed / total), breakdown, runtime_cost
 
         image_scores = []
         for metrics in image_metric_groups.values():
@@ -534,10 +502,6 @@ class PatchValidator:
         ]
         return sum(values) / len(values) if values else 0.0
 
-
-    def _constraint_breakdown(self, tasks: List[GenerationTask], seeds: Sequence[int]) -> Dict[str, Dict[str, float]]:
-        _, breakdown, _ = self._evaluate_tasks(tasks, seeds)
-        return breakdown
 
     def _breakdown_delta(
         self,

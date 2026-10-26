@@ -187,6 +187,36 @@ def test_nvila_attribute_checks_binding_location_not_only_scene_presence():
     assert checks[0]["expected_answer"] == "yes"
     assert checks[1]["expected_answer"] == "no"
     assert checks[1]["subject"] == "plate"
+    assert checks[1]["decision"] is False
+
+
+def test_nvila_accepts_attributes_shared_by_multiple_objects():
+    module = load_script("nvila_semantic_verifier.py")
+    constraint = {
+        "constraint_type": "attribute",
+        "metadata": {"attribute_bindings": [
+            {"object": "cup", "attribute": "red"},
+            {"object": "plate", "attribute": "red"},
+        ]},
+    }
+    checks = module.semantic_checks({"constraints": [constraint]}, constraint)
+    # A correct image makes every red-object probe answer yes, including
+    # diagnostic questions whose expected answer was no.
+    observations = [{**row, "yes_probability": 0.99, "no_probability": 0.01} for row in checks]
+    result = module.aggregate_result(observations, "attribute", 0.9, 0.65)
+    assert result["passed"] is True
+    assert result["evidence_status"] == "confirmed"
+
+
+def test_nvila_still_rejects_missing_required_attribute():
+    module = load_script("nvila_semantic_verifier.py")
+    result = module.aggregate_result([
+        {"kind": "attribute", "expected_answer": "yes", "yes_probability": 0.01, "no_probability": 0.99},
+        {"kind": "attribute_exclusivity", "decision": False, "expected_answer": "no",
+         "yes_probability": 0.01, "no_probability": 0.99},
+    ], "attribute", 0.9, 0.65)
+    assert result["passed"] is False
+    assert result["evidence_status"] == "mismatch"
 
 
 def test_strong_verifier_config_has_fixed_capability_owners(monkeypatch):

@@ -44,7 +44,7 @@ cd EvoGen-Harness
 conda create -n genharness python=3.11 -y
 conda activate genharness
 pip install --upgrade pip
-pip install -r requirements.txt
+python -m pip install -e ".[dev]"
 ```
 
 

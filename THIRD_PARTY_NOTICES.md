@@ -10,5 +10,3 @@ The [MIT License](LICENSE) applies to the project code as supplied by its author
 | Other backbones and verifiers | Obtain and use each model under its own model-card/code terms. Optional HTTP adapters do not provide a hosted model or access rights. |
 | Official evaluators | Installed separately from their actual pinned upstream releases. Their code, data and model dependencies retain their licenses. |
 | Paper figures and EvoGen marks | Author-supplied research figures and project identity assets for presenting this research. No third-party brand artwork is copied. Model/data terms still apply where relevant; the code license is not a trademark license. |
-
-Presentation references (not dependencies or copied source): [Qwen-Image](https://github.com/QwenLM/Qwen-Image), [Kimi K2](https://github.com/MoonshotAI/Kimi-K2), and [SAM 2](https://github.com/facebookresearch/sam2). They informed the separation of resource links, visual results, setup, usage, and citation.

@@ -92,7 +92,7 @@ cd EvoGen-Harness
 conda create -n genharness python=3.11 -y
 conda activate genharness
 pip install --upgrade pip
-pip install -r requirements.txt
+python -m pip install -e ".[dev]"
 ```
 
 
@@ -285,7 +285,7 @@ documentation/           Setup, evolution, evaluation, and release notes
 artifacts/               Documented interface for separately archived real runs
 ```
 
-The existing GitHub Pages site remains in `docs/` when this code is merged into the live repository. This code archive deliberately does not replace that directory.
+The project website is served from `docs/`.
 
 ## Citation
 

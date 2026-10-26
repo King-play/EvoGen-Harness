@@ -9,6 +9,5 @@
 | [Evaluation](EVALUATION.md) | Prompt-only inputs, generation, exports, official scoring |
 | [Architecture](ARCHITECTURE.md) | Map the five responsibilities to the implementation |
 | [Reproducibility](REPRODUCIBILITY.md) | Actual release inventory and provenance scope |
-| [Release notes](RELEASE_NOTES.md) | Exact packaging and source changes made in this release |
 
-The paper describes the method and reported experiments. The uploaded source controls the CLI examples and configuration names in these documents. When their scopes differ, the distinction is stated rather than filled in with guessed artifacts or scores.
+The guides cover the public implementation, its runtime requirements and evaluation interfaces. Paper-reported results require independent model execution and official benchmark scoring.

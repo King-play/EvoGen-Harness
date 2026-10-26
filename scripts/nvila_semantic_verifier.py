@@ -155,6 +155,10 @@ def semantic_checks(payload: dict[str, Any], constraint: dict[str, Any]) -> list
                         continue
                     checks.append({
                         "kind": "attribute_exclusivity",
+                        # The request does not imply that other objects lack
+                        # this attribute. Keep the probe as a diagnostic only:
+                        # two explicitly red objects must both be admissible.
+                        "decision": False,
                         "subject": other,
                         "target": attribute,
                         "expected_answer": "no",
@@ -404,6 +408,10 @@ def main() -> None:
     parser.add_argument("--pass-threshold", type=float, default=0.90)
     parser.add_argument("--reject-threshold", type=float, default=0.90)
     args = parser.parse_args()
+    if not 0.0 <= args.pass_threshold <= 1.0 or not 0.0 <= args.reject_threshold <= 1.0:
+        parser.error("pass-threshold and reject-threshold must be between 0 and 1")
+    if not (args.serve or args.check_model) and (not args.input or not args.output):
+        parser.error("--input and --output are required unless --serve or --check-model is used")
     state = load_model(args.model, args.device)
     if args.check_model:
         print(json.dumps({"ok": True, "model": args.model, "device": state["device"]}))
@@ -418,8 +426,6 @@ def main() -> None:
                 result = {"error": f"{exc.__class__.__name__}: {exc}", "constraint_results": {}}
             print(json.dumps(result, ensure_ascii=False), flush=True)
         return
-    if not args.input or not args.output:
-        parser.error("--input and --output are required unless --serve is used")
     payload = json.loads(Path(args.input).read_text(encoding="utf-8"))
     Path(args.output).write_text(json.dumps(handle_payload(payload, args, state), ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 

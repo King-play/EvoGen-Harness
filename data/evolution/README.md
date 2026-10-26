@@ -8,7 +8,7 @@ This release **already includes** the three prompt-only files:
 | [partiprompts_p2_heldout100.jsonl](partiprompts_p2_heldout100.jsonl) | 100 | `heldout` |
 | [partiprompts_p2_preservation100.jsonl](partiprompts_p2_preservation100.jsonl) | 100 | `preservation` |
 
-The JSONL bytes and the supplied [provenance manifest](partiprompts_p2_manifest.json) are unchanged from the latest uploaded code archive. [checksums.json](checksums.json) records their SHA-256 fingerprints for this release.
+The [provenance manifest](partiprompts_p2_manifest.json) records construction metadata. [checksums.json](checksums.json) records the supplied JSONL files' SHA-256 fingerprints.
 
 ## What the manifest establishes
 

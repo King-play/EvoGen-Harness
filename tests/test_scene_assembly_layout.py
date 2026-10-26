@@ -4,6 +4,13 @@ from gen_harness.adapters.scene_assembly_backend import SceneAssemblyBackend
 from gen_harness.spatial_prompt import normalize_relation
 
 
+def test_source_asset_seeds_are_reproducible_and_separate():
+    first = SceneAssemblyBackend._source_seed(0, 0)
+    assert first == SceneAssemblyBackend._source_seed(0, 0)
+    assert first != SceneAssemblyBackend._source_seed(0, 1)
+    assert first != SceneAssemblyBackend._source_seed(1, 0)
+
+
 def test_scene_assembly_layout_propagates_chained_spatial_relations():
     backend = object.__new__(SceneAssemblyBackend)
     backend.canvas_size = 1024
@@ -71,7 +78,7 @@ def test_action_asset_prompts_preserve_object_attributes():
         target_attributes=["brown"],
     )
 
-    assert "stripes" in subject_prompt
+    assert "striped" in subject_prompt
     assert "brown" in target_prompt
     assert "no other objects" in subject_prompt
     assert "no other objects" in target_prompt
@@ -139,5 +146,5 @@ def test_repeated_instances_have_clear_cell_gaps():
 
 def test_stone_is_compiled_into_the_source_asset_prompt():
     prompt = SceneAssemblyBackend._source_asset_prompt("motorcycle", ["stone"])
-    assert "stone motorcycle" in prompt
-    assert "solid natural stone" in prompt
+    assert "motorcycle" in prompt
+    assert "requested attributes: stone" in prompt

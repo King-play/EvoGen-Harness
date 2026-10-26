@@ -37,6 +37,10 @@ def source_files(root: Path):
             yield p
 
 
+
+
+
+
 class LinkParser(HTMLParser):
     def __init__(self):
         super().__init__(); self.targets = []
@@ -106,8 +110,7 @@ def check_docs(root: Path) -> tuple[int, int, list[str]]:
 def check(root: Path = ROOT) -> dict:
     errors = []
     required = ["README.md", "README_zh-CN.md", "CITATION.bib", "CITATION.cff", "LICENSE", "pyproject.toml",
-                "assets/readme/overview.png", "assets/readme/progressive-repair.jpg", "documentation/RELEASE_NOTES.md",
-                "documentation/release_validation.json", ".github/workflows/quality.yml"]
+                "assets/readme/overview.png", "assets/readme/progressive-repair.jpg", ".github/workflows/quality.yml"]
     for name in required:
         if not (root / name).is_file():
             errors.append(f"required release file missing: {name}")
@@ -136,8 +139,9 @@ def check(root: Path = ROOT) -> dict:
             yaml.safe_load(name.read_text(encoding="utf-8"))
         if cff["preferred-citation"]["url"] != "https://arxiv.org/abs/2610.00383":
             errors.append("CITATION.cff: unexpected paper URL")
-        if cff["version"] != "0.2.0":
-            errors.append("CITATION.cff: version must match the supplied source version")
+        from gen_harness import __version__
+        if cff["version"] != __version__:
+            errors.append("CITATION.cff: version differs from the package")
     except (ImportError, ValueError, KeyError) as exc:
         errors.append(f"citation/workflow validation: {exc}; install .[dev] when dependencies are missing")
     try:

@@ -9,61 +9,6 @@ from pathlib import Path
 from typing import Any
 
 
-DETECTOR_CONFOUNDER_QUERIES = {
-    "bear": ["teddy bear"],
-    "bus": ["train", "truck", "microwave", "refrigerator"],
-    "computer keyboard": ["cell phone", "laptop", "piano"],
-    "microwave": ["oven", "refrigerator", "tv", "sink"],
-    "sink": ["bowl", "cell phone", "toilet"],
-    "snowboard": ["skis", "skateboard", "surfboard", "person"],
-    "toothbrush": ["skis", "snowboard", "person", "fork", "knife", "spoon"],
-}
-
-DETECTOR_CLASS_ALIASES = {
-    "persons": "person",
-    "people": "person",
-    "sheeps": "sheep",
-}
-
-DETECTOR_AMBIGUOUS_CLASS_ALIASES = {
-    "mug": "cup",
-    "mugs": "cup",
-}
-
-
-def expanded_detector_queries(classes: list[str]) -> list[str]:
-    out: list[str] = []
-    for class_name in classes:
-        name = str(class_name).strip().lower()
-        if not name or name in out:
-            continue
-        out.append(name)
-        for confounder in DETECTOR_CONFOUNDER_QUERIES.get(name, []):
-            if confounder not in out:
-                out.append(confounder)
-    return out
-
-
-def filter_confounded_detections(
-    detected_objects: list[dict[str, Any]],
-    detections_by_class: dict[str, list[dict[str, Any]]],
-    *,
-    required_classes: list[str] | None = None,
-) -> list[dict[str, Any]]:
-    required = {str(name).strip().lower() for name in (required_classes or [])}
-    filtered: list[dict[str, Any]] = []
-    for det in detected_objects:
-        class_name = str(det.get("class", "")).lower()
-        confounders = DETECTOR_CONFOUNDER_QUERIES.get(class_name, [])
-        if not confounders:
-            if class_name in required or not _is_confounder_only_class(class_name):
-                filtered.append(det)
-            continue
-        if not any(_overlapping_stronger_confounder(det, detections_by_class.get(confounder, [])) for confounder in confounders):
-            filtered.append(det)
-    return filtered
-
-
 def classwise_nms(
     detections: list[dict[str, Any]],
     *,
@@ -196,35 +141,9 @@ def required_classes(payload: dict[str, Any]) -> list[str]:
     return deduped
 
 
-def normalize_detector_class(name: str) -> str:
-    return normalize_detector_classes([name])[0] if str(name).strip() else ""
-
-
 def normalize_detector_classes(names: list[str]) -> list[str]:
-    base_names = [base_detector_class(name) for name in names if str(name).strip()]
-    base_set = set(base_names)
-    out: list[str] = []
-    for name in base_names:
-        alias = DETECTOR_AMBIGUOUS_CLASS_ALIASES.get(name, name)
-        normalized = name if alias != name and alias in base_set else alias
-        if normalized and normalized not in out:
-            out.append(normalized)
-    return out
+    return list(dict.fromkeys(base_detector_class(name) for name in names if str(name).strip()))
 
 
 def base_detector_class(name: str) -> str:
-    text = str(name).strip().lower()
-    return DETECTOR_CLASS_ALIASES.get(text, text)
-
-
-def _is_confounder_only_class(class_name: str) -> bool:
-    return any(class_name in confounders for confounders in DETECTOR_CONFOUNDER_QUERIES.values())
-
-
-def _overlapping_stronger_confounder(det: dict[str, Any], confounders: list[dict[str, Any]]) -> bool:
-    score = float(det.get("score", 0.0) or 0.0)
-    for other in confounders:
-        other_score = float(other.get("score", 0.0) or 0.0)
-        if other_score >= score and bbox_iou(det.get("bbox"), other.get("bbox")) >= 0.45:
-            return True
-    return False
+    return " ".join(str(name).strip().lower().split())

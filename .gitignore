@@ -1,0 +1,34 @@
+# Python and build products
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+build/
+dist/
+.venv/
+venv/
+
+# Credentials, local notes and experiment output
+.env
+.env.*
+!.env.example
+.genharness.local.env
+*.local.md
+local-notes/
+private/
+runs/
+logs/
+
+# External model weights
+models/
+*.safetensors
+*.ckpt
+
+# OS metadata
+.DS_Store
+._*
+__MACOSX/

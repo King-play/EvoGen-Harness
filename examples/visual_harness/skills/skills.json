@@ -1,0 +1,151 @@
+{
+  "component_name": "visual_skills",
+  "component_type": "skills",
+  "version": "0.1.0",
+  "boundary_contract": {
+    "owns": [
+      "workflow recipes",
+      "prompt family rules",
+      "constraint-to-prompt rendering"
+    ],
+    "reads": [
+      "policy contract",
+      "reference bindings",
+      "retrieved memory guidance"
+    ],
+    "writes": [
+      "visual program",
+      "compiled generator prompt",
+      "contract coverage trace"
+    ],
+    "must_not_own": [
+      "constraint ontology",
+      "tool capability declarations",
+      "tool execution",
+      "routing decisions",
+      "memory persistence"
+    ]
+  },
+  "skills": {
+    "default": {
+      "name": "default",
+      "required_steps": [
+        "attribute",
+        "spatial"
+      ],
+      "template": "basic prompt-reference generation"
+    },
+    "multi_reference_generation": {
+      "name": "multi_reference_generation",
+      "required_steps": [
+        "identity",
+        "style",
+        "attribute",
+        "spatial"
+      ],
+      "template": "bind identity/style/layout references before generation"
+    },
+    "compositional_generation": {
+      "name": "compositional_generation",
+      "family_selection_defaults": {
+        "repeated_count": "counting_small_objects"
+      },
+      "required_steps": [
+        "count",
+        "attribute",
+        "spatial",
+        "action",
+        "negative"
+      ],
+      "template": "compile compositional constraints into visual program",
+      "prompt_rules": [
+        "Use exactly the requested count for each object, no more and no fewer.",
+        "Keep repeated objects clearly separated and fully visible so they can be counted.",
+        "Avoid clutter, overlap, and occlusion unless the prompt explicitly asks for them."
+      ],
+      "prompt_families": {
+        "shared": {
+          "prompt_rules": [
+            "Make every required object or relation explicit before adding style details."
+          ]
+        },
+        "counting_small_objects": {
+          "prompt_rules": [
+            "Place repeated objects in a wide row or loose triangle with clear gaps.",
+            "For fruits or other small objects, use a plain surface and avoid bowls, baskets, piles, clusters, stacks, overlaps, or occlusion."
+          ]
+        },
+        "counting_people": {
+          "prompt_rules": [
+            "Keep each person fully visible and spaced apart so bodies remain countable.",
+            "Avoid crowding, pose overlap, and partial occlusion unless explicitly requested."
+          ]
+        },
+        "counting_general": {
+          "prompt_rules": [
+            "Keep every required category in its own clearly separated slots and preserve each category's exact count."
+          ]
+        },
+        "text_rendering": {
+          "prompt_rules": [
+            "Render requested text verbatim and keep lettering legible.",
+            "Avoid decorative fonts that distort characters unless the user explicitly asks for them."
+          ]
+        },
+        "object_relations": {},
+        "action_interaction": {
+          "action_templates": {
+            "jumping over": "Action: {subject} airborne jumping over {target}; clear vertical gap; not side by side.",
+            "chasing": "Action: {subject} chasing {target}; motion direction visible; {target} ahead.",
+            "playing with": "Action: {subject} playing with {target}; visible interaction or contact."
+          },
+          "prompt_rules": [
+            "Make actions visually explicit with pose, contact, or motion cues rather than a static object lineup.",
+            "For jumping over, show the subject airborne above the target with clear vertical separation.",
+            "For chasing, show motion direction and the chased object ahead.",
+            "For playing with, show visible interaction or contact between the two objects."
+          ]
+        },
+        "attribute_binding": {
+          "scene_preserving_constraint_families": [
+            "attribute",
+            "shape_attribute",
+            "texture_attribute"
+          ],
+          "scene_preserving_presentation": "Natural coherent scene preserving the original background, side/depth relations, and every named subject clearly visible.",
+          "isolated_presentation": "Large separated objects on a plain white background.",
+          "prompt_rules": [
+            "Bind each attribute to exactly one target object and avoid attributing the same property to unrelated objects."
+          ]
+        },
+        "clutter_and_occlusion_control": {
+          "prompt_rules": [
+            "Keep the scene uncluttered and leave enough free space for each required object to be independently visible."
+          ]
+        },
+        "scene_composition": {
+          "prompt_rules": [
+            "Use a simple composition with a clear foreground subject and stable framing."
+          ]
+        }
+      }
+    },
+    "prompt_enhancement": {
+      "name": "prompt_enhancement",
+      "required_steps": [
+        "quality",
+        "aesthetic",
+        "prompt_alignment",
+        "attribute",
+        "spatial",
+        "negative"
+      ],
+      "template": "turn vague user intent into a concrete image-generation brief with composition, lighting, palette, quality, and negative controls",
+      "prompt_rules": [
+        "Preserve the requested subject and scene before expanding style or atmosphere.",
+        "Make the focal subject, lighting direction, composition, and color palette explicit.",
+        "Add negative controls for readable text, logos, watermarks, distorted anatomy, extra limbs, and low-resolution artifacts."
+      ]
+    }
+  }
+}

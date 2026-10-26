@@ -450,7 +450,7 @@ def test_trace_metrics_match_appendix_definitions():
     assert efficiency["average_candidate_edits_per_task"] == 6.0
 
 
-def test_prompt_efficiency_observation_counts_actual_attempts_and_fixed_llm():
+def test_prompt_efficiency_observation_labels_component_call_estimates():
     row = prompt_efficiency_observation(
         wall_clock_seconds=12.5,
         fast_loop={"attempts": [{"attempt": 0}, {"attempt": 1}]},
@@ -459,12 +459,24 @@ def test_prompt_efficiency_observation_counts_actual_attempts_and_fixed_llm():
     )
     assert row["generator_calls"] == 2
     assert row["llm_vlm_calls"] == 3
+    assert row["estimated"] is True
     assert row["call_breakdown"] == {
         "policy_llm_calls": 1,
         "prompt_optimizer_calls": 0,
         "visual_verifier_calls": 2,
         "detector_calls_excluded_from_llm_vlm": True,
     }
+
+
+def test_efficiency_summary_does_not_invent_a_generation_without_attempts():
+    row = prompt_efficiency_observation(
+        wall_clock_seconds=0.0,
+        fast_loop=None,
+        policy_extractor=None,
+    )
+    assert row["generator_calls"] == 0
+    assert row["llm_vlm_calls"] == 0
+    assert row["estimated"] is True
 
 
 def test_readme_formal_commands_reference_public_reproducible_inputs():

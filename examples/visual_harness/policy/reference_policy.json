@@ -1,0 +1,31 @@
+{
+  "component_name": "reference_policy",
+  "component_type": "policy",
+  "version": "0.1.0",
+  "boundary_contract": {
+    "owns": [
+      "allowed reference roles",
+      "reference evidence requirements"
+    ],
+    "reads": [
+      "task references",
+      "declared reference roles"
+    ],
+    "writes": [
+      "required reference role constraints"
+    ],
+    "must_not_own": [
+      "reference binding decisions",
+      "tool routing",
+      "prompt recipe text",
+      "experience storage"
+    ]
+  },
+  "allowed_roles": [
+    "identity",
+    "style",
+    "layout",
+    "material"
+  ],
+  "require_explicit_roles_for_multi_reference": true
+}

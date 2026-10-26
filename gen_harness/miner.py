@@ -48,8 +48,8 @@ class WeaknessMiner:
                 symptom = exp.failure_symptom or "unknown"
                 key = (component, exp.constraint_type, symptom)
                 _append_unique(clusters[key], exp)
-        for _component, ctype, symptom in self._image_metric_weaknesses(exp):
-            _append_unique(clusters[("unknown", ctype, symptom)], exp)
+            for _component, ctype, symptom in self._image_metric_weaknesses(exp):
+                _append_unique(clusters[("unknown", ctype, symptom)], exp)
 
         weaknesses: List[Weakness] = []
         for (component, ctype, symptom), rows in sorted(clusters.items()):
